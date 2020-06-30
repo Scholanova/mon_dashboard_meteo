@@ -13,12 +13,12 @@ Projet 2020 - Mon dashboard météo
     ```
                 
 -	**Methods**
-        - un verbe de préférence, première lettre minuscule puis chaque première lettre des mots en majuscule.
-                 ```
-                run();
-                runFast();
-                getBackground() ;
-                ```
+    - un verbe de préférence, première lettre minuscule puis chaque première lettre des mots en majuscule.
+    ```
+    run();
+    runFast();
+    getBackground() ;
+    ```
                 
 -   **Variables**
         - première lettre minuscule puis chaque première lettre des mots en majuscule, pas de « _ » ou « $ » en debut.
