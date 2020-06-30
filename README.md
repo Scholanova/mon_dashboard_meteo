@@ -58,5 +58,6 @@ Les utilisateurs ont un profil avec dedans :
 -   **Packages**
     - Tout en minuscule.
     ```
-    com.sun.eng, com.app.quicktime.v2
+    com.sun.eng
+    com.app.quicktime.v2
     ```
