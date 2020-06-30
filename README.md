@@ -2,6 +2,7 @@
 Projet 2020 - Mon dashboard météo
 
 ## Aspect fonctionnel
+Les utilisateurs ont un profil avec dedans :
 - Des villes favorites
 - Moyen de transport
 - Des paramètres d’alertes comme :
