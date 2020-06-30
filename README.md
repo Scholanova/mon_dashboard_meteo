@@ -1,6 +1,14 @@
 # mon_dashboard_meteo
 Projet 2020 - Mon dashboard météo
 
+- Gomes Nicolas
+- Djibril Diop
+- François Godin
+- Daouda Fofana
+
+## Scalingo
+https://my.osc-fr1.scalingo.com/apps/mon-dashboard-meteo/code
+
 ## Aspect fonctionnel
 Les utilisateurs ont un profil avec dedans :
 - Des villes favorites
