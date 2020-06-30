@@ -2,7 +2,7 @@
 Projet 2020 - Mon dashboard météo
 
 - Gomes Nicolas
-- Djibril Diop
+- Elimane Sene
 - François Godin
 - Daouda Fofana
 
