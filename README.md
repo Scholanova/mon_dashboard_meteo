@@ -1,6 +1,22 @@
 # mon_dashboard_meteo
 Projet 2020 - Mon dashboard météo
 
+## Aspect fonctionnel
+- Des villes favorites
+- Moyen de transport
+- Des paramètres d’alertes comme :
+    - Mail le matin avant sorti
+    - Mail en journée en cas de changement
+    - Mail en fonction des jours sélectionnés
+    - Mail avec les détails des villes
+- Moyenne de température
+- Meilleure ville par température
+- Type de prévision (alerte), semaine, jour
+- Profile de la personne, frileux ou non
+- Information sur les événements, soleil, neige, pluie + température
+- Proposer des activités en fonction de la température
+
+
 ## Conventions et normes
 -	**Tout le code est en anglais**
 
