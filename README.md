@@ -21,13 +21,12 @@ Projet 2020 - Mon dashboard météo
     ```
                 
 -   **Variables**
-        - première lettre minuscule puis chaque première lettre des mots en majuscule, pas de « _ » ou « $ » en debut.
-        
-                ```
-                int i;
-                char c;
-                float myWidth;
-                ```
+    - première lettre minuscule puis chaque première lettre des mots en majuscule, pas de « _ » ou « $ » en debut.
+    ```
+    int i;
+    char c;
+    float myWidth;
+    ```
                 
 -	**Constants**
         - Tout en majuscule et les mots séparer par « _ ».
