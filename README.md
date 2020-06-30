@@ -6,16 +6,16 @@ Les utilisateurs ont un profil avec dedans :
 - Des villes favorites
 - Moyen de transport
 - Des paramètres d’alertes comme :
-    - Mail le matin avant sorti
+    - Mail le matin avant de sortir
     - Mail en journée en cas de changement
     - Mail en fonction des jours sélectionnés
     - Mail avec les détails des villes
 - Moyenne de température
 - Meilleure ville par température
-- Type de prévision (alerte), semaine, jour
+- Type de prévision (alerte), semaine, jour, mois
 - Profile de la personne, frileux ou non
 - Information sur les événements, soleil, neige, pluie + température
-- Proposer des activités en fonction de la température
+- Proposer des activités en fonction de la température (Optionnel)
 
 
 ## Conventions et normes
