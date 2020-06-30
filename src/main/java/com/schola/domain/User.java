@@ -1,4 +1,4 @@
-package com.schola.mydashboardweather.domain;
+package com.schola.domain;
 
 public class User {
     private String nom;
