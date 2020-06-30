@@ -5,7 +5,7 @@ Projet 2020 - Mon dashboard météo
 -	**Tout le code est en anglais**
 
 -   **Classes**, **Interfaces**
-        - première lettre en majuscule, pas de « s » en fin classe.     
+        - première lettre en majuscule, pas de « s » en fin classe.
                 ```
                 User
                 Dog
@@ -13,7 +13,7 @@ Projet 2020 - Mon dashboard météo
                 ```
                 
 -	**Methods**
-        - un verbe de préférence, première lettre minuscule puis chaque première lettre des mots en majuscule.    
+        - un verbe de préférence, première lettre minuscule puis chaque première lettre des mots en majuscule.
                  ```
                 run();
                 runFast();
@@ -22,6 +22,7 @@ Projet 2020 - Mon dashboard météo
                 
 -   **Variables**
         - première lettre minuscule puis chaque première lettre des mots en majuscule, pas de « _ » ou « $ » en debut.
+        
                 ```
                 int i;
                 char c;
@@ -35,7 +36,7 @@ Projet 2020 - Mon dashboard météo
                 ```
                 
 -   **Packages**
-        - Tout en minuscule.   
+        - Tout en minuscule.
                 ```
                 com.sun.eng, com.app.quicktime.v2
                 ```
