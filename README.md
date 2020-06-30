@@ -29,13 +29,13 @@ Projet 2020 - Mon dashboard météo
     ```
                 
 -	**Constants**
-        - Tout en majuscule et les mots séparer par « _ ».
-                ```
-                static final MIN_WIDTH = 4;
-                ```
+    - Tout en majuscule et les mots séparer par « _ ».
+    ```
+    static final MIN_WIDTH = 4;
+    ```
                 
 -   **Packages**
-        - Tout en minuscule.
-                ```
-                com.sun.eng, com.app.quicktime.v2
-                ```
+    - Tout en minuscule.
+    ```
+    com.sun.eng, com.app.quicktime.v2
+    ```
