@@ -5,12 +5,12 @@ Projet 2020 - Mon dashboard météo
 -	**Tout le code est en anglais**
 
 -   **Classes**, **Interfaces**
-        - première lettre en majuscule, pas de « s » en fin classe.
-                ```
-                User
-                Dog
-                ImageMainWindow
-                ```
+- première lettre en majuscule, pas de « s » en fin classe.
+```
+User
+Dog
+ImageMainWindow
+```
                 
 -	**Methods**
         - un verbe de préférence, première lettre minuscule puis chaque première lettre des mots en majuscule.
