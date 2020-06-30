@@ -22,7 +22,8 @@ Les utilisateurs ont un profil avec dedans :
 -	**Tout le code est en anglais**
 
 -   **Classes**, **Interfaces**
-    - première lettre en majuscule, pas de « s » en fin classe.
+    - Première lettre en majuscule
+    - Pas de « s » en fin classe.
     ```
     User
     Dog
@@ -30,7 +31,8 @@ Les utilisateurs ont un profil avec dedans :
     ```
                 
 -	**Methods**
-    - un verbe de préférence, première lettre minuscule puis chaque première lettre des mots en majuscule.
+    - Un verbe de préférence
+    - Première lettre minuscule puis chaque première lettre des mots en majuscule.
     ```
     run();
     runFast();
@@ -38,7 +40,8 @@ Les utilisateurs ont un profil avec dedans :
     ```
                 
 -   **Variables**
-    - première lettre minuscule puis chaque première lettre des mots en majuscule, pas de « _ » ou « $ » en debut.
+    - Première lettre minuscule puis chaque première lettre des mots en majuscule
+    - Pas de « _ » ou « $ » en debut.
     ```
     int i;
     char c;
@@ -46,7 +49,8 @@ Les utilisateurs ont un profil avec dedans :
     ```
                 
 -	**Constants**
-    - Tout en majuscule et les mots séparer par « _ ».
+    - Tout en majuscule
+    - Mots séparer par « _ ».
     ```
     static final MIN_WIDTH = 4;
     ```
