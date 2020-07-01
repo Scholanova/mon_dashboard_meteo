@@ -31,5 +31,4 @@ public class Alert {
     public Integer getRepeat() {
         return repeat;
     }
-    
 }
