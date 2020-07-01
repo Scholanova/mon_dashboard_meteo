@@ -6,6 +6,10 @@ Projet 2020 - Mon dashboard météo
 - François Godin
 - Daouda Fofana
 
+## API utilisées
+https://geo.api.gouv.fr/decoupage-administratif
+https://api.meteo-concept.com/
+
 ## Scalingo
 https://my.osc-fr1.scalingo.com/apps/mon-dashboard-meteo/code
 
