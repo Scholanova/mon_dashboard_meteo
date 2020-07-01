@@ -1,7 +1,22 @@
 version: 2.1
+
+executors:
+  java-executor:
+    environment:
+      DATABASE_URL: jdbc:postgresql://postgres:postgres@127.0.0.1:5432/mon-dashboar-6664
+    docker:
+      - image: circleci/openjdk:8-jdk
+      - image: postgres:11.7-alpine
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: mon-dashboar-6664
+
 orbs:
-  maven: circleci/maven@0.0.12
+  maven: circleci/maven@1.0.1
+
 workflows:
   maven_test:
     jobs:
-      - maven/test # checkout, build, test, and upload test results
+      - maven/test:
+          executor: java-executor
