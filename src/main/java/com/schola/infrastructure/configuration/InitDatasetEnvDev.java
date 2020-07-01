@@ -1,8 +1,8 @@
-package com.schola.infrastructure;
+package com.schola.infrastructure.configuration;
 
 
 import org.springframework.context.annotation.Conditional;
 
 @Conditional(value = {MockProfileCondition.class})
-public class Configuration {
+public class InitDatasetEnvDev {
 }

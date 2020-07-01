@@ -1,4 +1,4 @@
-package com.schola.infrastructure;
+package com.schola.infrastructure.configuration;
 
 import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
 import org.springframework.boot.autoconfigure.condition.SpringBootCondition;

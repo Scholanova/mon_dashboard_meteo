@@ -1,6 +1,5 @@
-package com.schola.infrastructure;
+package com.schola.infrastructure.configuration;
 
-import org.springframework.context.annotation.Condition;
 import org.springframework.core.env.Environment;
 
 import java.util.Arrays;
