@@ -5,8 +5,8 @@ public class UserService {
 
     private UserGateway userGateway;
 
-    public User doAuth(String username , String password){
-        return userGateway.autoLogin(username, password);
+    public void doAuth(String email , String password){
+         userGateway.autoLogin(email, password);
     }
 
 }

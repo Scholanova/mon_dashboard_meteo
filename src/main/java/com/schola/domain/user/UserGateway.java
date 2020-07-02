@@ -1,7 +1,7 @@
 package com.schola.domain.user;
 
 public interface UserGateway {
-    String findUserbyEmail();
+    User findUserbyEmail(String email);
 
-    User autoLogin(String username, String password);
+    void autoLogin(String username, String password);
 }

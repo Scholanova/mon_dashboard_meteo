@@ -1,5 +1,8 @@
 package com.schola.domain.user;
 
+import lombok.Builder;
+
+@Builder
 public class User {
     private Integer id;
     private String lastName;
