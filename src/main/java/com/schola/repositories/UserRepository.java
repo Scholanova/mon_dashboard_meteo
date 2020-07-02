@@ -1,0 +1,19 @@
+package com.schola.repositories;
+
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class UserRepository {
+
+    private final NamedParameterJdbcTemplate jdbcTemplate;
+
+    public UserRepository(NamedParameterJdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+//    public User create(User userToCreate) {
+//        return null;
+//    }
+
+}
