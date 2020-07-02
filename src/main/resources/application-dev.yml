@@ -1,9 +1,10 @@
 Spring:
   datasource:
-    url: jdbc:postgresql://mon_dashboar_6664:_erzXwPTgm9iqR2x_f-o@mon-dashboar-6664.postgresql.dbs.scalingo.com
+    url: jdbc:postgres://mon_dashboar_6664:_erzXwPTgm9iqR2x_f-o@mon-dashboar-6664.postgresql.dbs.scalingo.com:32279/mon_dashboar_6664?sslmode=prefer
     username: mon_dashboar_6664
     password: _erzXwPTgm9iqR2x_f-o
-    jpa:
-      show-sql: true
-      hibernate:
-      ddl-auto: create-drop
+    hikari:
+     maximum-pool-size: 2
+  liquibase:
+    change-log: classpath:db/changelog/db-changelog.xml
+

@@ -10,9 +10,9 @@ public abstract class ProfileCondition extends SpringBootCondition {
     @Override
     public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
         if(matchProfiles(context.getEnvironment())){
-            return ConditionOutcome.match("A local profile has been found.");
+            return ConditionOutcome.match("A dev profile has been found.");
         }
-        return ConditionOutcome.noMatch("No local profiles found.");
+        return ConditionOutcome.noMatch("No dev profiles found.");
     }
 
     protected abstract boolean matchProfiles(final Environment environment);
