@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <title>My dashboard meteo</title>
+</head>
+<body>
+
+<h1>Bienvenue sur myDashboardMeteo</h1>
+    <p>Pour profiter d'une météo personnalisée, veuillez vous connecter ou vous inscrire</p>
+    <form action="#"
+          th:action="@{/connexion}"
+          th:object="${user}"
+          method="post">
+        <label for="email">Email</label>
+        <input type="text" th:field="*{email}" id="email" placeholder="Email">
+        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        <label for="email">Email</label>
+        <input type="password" th:field="*{password}" id="password" placeholder="Password">
+        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+        <input type="submit" value="Connexion">
+    </form>
+    <p><a href="/addUser">S'inscrire</a></p>
+</body>
