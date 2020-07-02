@@ -10,7 +10,7 @@
 <h1>Bienvenue sur myDashboardMeteo</h1>
     <p>Pour profiter d'une météo personnalisée, veuillez vous connecter ou vous inscrire</p>
     <form action="#"
-          th:action="@{/connexion}"
+          th:action="@{/signin}"
           th:object="${user}"
           method="post">
         <label for="email">Email</label>
@@ -21,5 +21,5 @@
         <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
         <input type="submit" value="Connexion">
     </form>
-    <p><a href="/addUser">S'inscrire</a></p>
+    <p><a href="/users/new">S'inscrire</a></p>
 </body>
