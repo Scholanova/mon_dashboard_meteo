@@ -1,0 +1,9 @@
+Spring:
+  datasource:
+    url: jdbc:postgresql://mon_dashboar_6664:_erzXwPTgm9iqR2x_f-o@mon-dashboar-6664.postgresql.dbs.scalingo.com
+    username: mon_dashboar_6664
+    password: _erzXwPTgm9iqR2x_f-o
+    jpa:
+      show-sql: true
+      hibernate:
+      ddl-auto: create-drop
