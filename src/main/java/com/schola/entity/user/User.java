@@ -34,7 +34,7 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @Column(name = "role")
+    //@Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Collection<Role> roles;
 
