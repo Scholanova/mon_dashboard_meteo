@@ -1,8 +1,6 @@
 package com.schola.entity.alert;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
@@ -15,8 +13,7 @@ import java.util.stream.Collectors;
 @Entity
 @Table(name = "alert")
 @AllArgsConstructor
-@Getter
-@Setter
+
 public class Alert  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
