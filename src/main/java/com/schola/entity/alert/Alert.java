@@ -1,6 +1,6 @@
 package com.schola.entity.alert;
 
-import lombok.AllArgsConstructor;
+
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "alert")
-@AllArgsConstructor
 
 public class Alert  {
     @Id
