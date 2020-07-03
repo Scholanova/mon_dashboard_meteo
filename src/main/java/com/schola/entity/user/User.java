@@ -21,10 +21,13 @@ import java.util.stream.Collectors;
 @Setter
 public class User implements UserDetails {
 
+    User(){};
+
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Integer id;
+    private Long id;
     @Column(name = "lastname")
     private String lastName;
     @Column(name = "firstname")
@@ -33,30 +36,19 @@ public class User implements UserDetails {
     private String email;
     @Column(name = "password")
     private String password;
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    //@Column(name = "role")
-    @Enumerated(EnumType.STRING)
-    private Collection<Role> roles;
 
-    public User() {
-        //this.accountNonExpired = true;
-        //this.accountNonLocked = true;
-        //this.credentialsNonExpired = true;
-        //this.enabled = true;
-        this.roles = Collections.singletonList(Role.USER);
-    }
 
-    public User(String email, String password, String firstName, String lastName, Collection<Role> roles) {
+
+    public User(String email, String password, String firstName, String lastName) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.roles = roles;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        String roles = StringUtils.collectionToCommaDelimitedString(getRoles().stream()
+        String roles = StringUtils.collectionToCommaDelimitedString(Collections.singletonList(Role.USER).stream()
                 .map(Enum::name).collect(Collectors.toList()));
         return AuthorityUtils.commaSeparatedStringToAuthorityList(roles);
     }

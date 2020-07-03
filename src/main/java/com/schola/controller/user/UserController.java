@@ -70,7 +70,7 @@ public class UserController {
                                       @RequestParam("firstName") String firstName,
                                       @RequestParam("lastName") String lastName) {
         try {
-            User user = new User(email, password, firstName, lastName, Collections.singleton(Role.USER));
+            User user = new User(email, password, firstName, lastName);
             userRepository.save(user);
 
             return new ModelAndView("redirect:" + "/login   ");
