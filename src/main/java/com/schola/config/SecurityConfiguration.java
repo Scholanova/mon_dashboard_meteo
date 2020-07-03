@@ -1,54 +1,50 @@
-package com.schola.infrastructure.config;
+package com.schola.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+	private final UserDetailsService userDetailsService;
 
-	@Qualifier("userDetailsServiceImpl")
 	@Autowired
-	private UserDetailsService userDetailsService;
+	public SecurityConfiguration(UserDetailsService userDetailsService) {
+		this.userDetailsService = userDetailsService;
+	}
 
-	@Bean
-	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+	@Bean(name = "passwordEncoder")
+	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+
+	@Autowired
+	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
-				.authorizeRequests()
-				.antMatchers("/resources/**", "/registration").permitAll()
-				.anyRequest().authenticated()
+		http.authorizeRequests()
+				.anyRequest().permitAll()
 				.and()
-				.formLogin()
-				.loginPage("/login")
-				.permitAll()
+				.formLogin().loginPage("/login").defaultSuccessUrl("/").failureUrl("/error")
+				.usernameParameter("email").passwordParameter("password")
 				.and()
-				.logout()
-				.permitAll();
-	}
-
-	@Bean
-	public AuthenticationManager customAuthenticationManager() throws Exception {
-		return authenticationManager();
-	}
-
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+				.logout().invalidateHttpSession(true)
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/login")
+				.and()
+				.csrf()
+				.and()
+				.sessionManagement().maximumSessions(1).expiredUrl("/login");
 	}
 }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header th:replace="header/header::header"></header>
+<div>
+    <div>
+        <p th:if="${registrationError}" class="error">Le nom d'utilisateur existe déja</p>
+        <form th:action="@{/register}" method="post">
+            <fieldset>
+                <div>
+                    <label for="email">Nom d'utilisateur</label>
+                    <input type="text" id="email" name="email" placeholder="Email" required="required" autofocus="autofocus" />
+                </div>
+
+                <div>
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" placeholder="Mot de passe" required="required" />
+                </div>
+
+                <div>
+                    <label for="firstName">Prenom</label>
+                    <input type="text" id="firstName" name="firstName" placeholder="Prenom" required="required" />
+                </div>
+
+                <div>
+                    <label for="lastName">Nom</label>
+                    <input type="text" id="lastName" name="lastName" placeholder="Nom" required="required" />
+                </div>
+
+                <div>
+                    <input type="submit" value="Valider" />
+                </div>
+
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            </fieldset>
+        </form>
+    </div>
+</div>
+</html>

@@ -1,10 +1,7 @@
---liquibase formatted sql
-
---changeset scholanova:1
-CREATE TABLE IF NOT EXISTS public.USER (
-  id        NUMERIC NOT NULL,
-  lastName	VARCHAR(100),
-  firstName	VARCHAR(100),
-  email     VARCHAR(100),
-  PRIMARY KEY (id)
+CREATE TABLE IF NOT EXISTS USERS (
+  USER_ID SERIAL PRIMARY KEY,
+  lastname VARCHAR(255),
+  firstname	VARCHAR(255),
+  email VARCHAR(255),
+  password VARCHAR(255)
 );
