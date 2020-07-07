@@ -18,6 +18,7 @@ public class FrontConfig  extends WebMvcConfigurerAdapter {
        // registry.addViewController("/login").setViewName("authentification/login");
         registry.addViewController("/register").setViewName("authentification/register");
         registry.addViewController("/main").setViewName("main");
+        registry.addViewController("/cities").setViewName("cities");
 
     }
 
