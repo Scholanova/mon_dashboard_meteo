@@ -5,9 +5,10 @@
 <body>
 <header th:fragment="header">
     <nav>
-        <a th:href="@{/}">Page d'accueil</a>
-        <a sec:authorize="isAnonymous()" th:href="@{/login}">Se connecter</a>
+        <a th:href="@{/main}" sec:authorize="isAuthenticated()">Page d'accueil</a>
+        <a sec:authorize="isAnonymous()" th:href="@{/}">Se connecter</a>
         <a sec:authorize="isAnonymous()" th:href="@{/register}">S'inscrire</a>
+        <a sec:authorize="isAnonymous()" th:href="@{/logout}">Déconnexion</a>
         <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
             <input type="submit" value="Logout" />
         </form>
