@@ -2,11 +2,27 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <header th:replace="header/header::header"></header>
 <head>
-    <title th:text="${response.getCity().getName()}"></title>
+    <title>My Weather Dashboard</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+
+<h1 th:text="${response.getCity().getName()}"/>
+<p th:text="${response.getCity().getCp()}"/>
+
+<h3 th:text="${response.getForecast().getDatetime()}"/>
+
+
+<div>
+    <h2> Weather Informations</h2>
+    <p th:text="${response.getForecast().getWeather()}"/>
+    <p th:text="${response.getForecast().getTmin()}"/>
+    <p th:text="${response.getForecast().getTmax()}"/>
+    <p th:text="${response.getForecast().getSun_hours()}"/>
+    <p th:text="${response.getForecast().getProbafrostv()}"/>
+    <p th:text="${response.getForecast().getProbafog()}"/>
+</div>
 
 </body>
 </html>

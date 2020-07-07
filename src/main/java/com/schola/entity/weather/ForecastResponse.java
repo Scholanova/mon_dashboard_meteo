@@ -6,14 +6,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class ForecastResponse{
     private String insee;               // Code Insee de la commune
     private int day;                    // Jour entre 0 et 13 (Pour le jour même : 0, pour le lendemain : 1, etc.)
-    private String datetime;     // Date en heure locale
+    private String datetime;            // Date en heure locale
     private int probarain;              // Probabilité de pluie entre 0 et 100%
     private int weather;                // Temps sensible (Code temps)
     private int tmin;                   // Température minimale
     private int tmax;                   // Température maximale
-    private int sun_hours;               // Ensoleillement en heures
-    private int probafrostv;             // Probabilité de gel entre 0 et 100%
-    private int probafog;             // Probabilité de brouillard entre 0 et 100%
+    private int sun_hours;              // Ensoleillement en heures
+    private int probafrostv;            // Probabilité de gel entre 0 et 100%
+    private int probafog;               // Probabilité de brouillard entre 0 et 100%
 
     public String getInsee() {
         return insee;
