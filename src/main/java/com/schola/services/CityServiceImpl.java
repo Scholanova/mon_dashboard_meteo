@@ -3,7 +3,10 @@ package com.schola.services;
 import com.schola.entity.city.City;
 import com.schola.repository.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+
+@Service("CityService")
 public class CityServiceImpl implements CityService{
     private CityRepository cityRepository;
 

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="fr">
+
+    <title>Weather App</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+
+<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+
+<div class="container">
+    <div class="row">
+        <h2>Details</h2>
+        <div class="col s12 m4">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Id</label>
+                    <p class="flow-text" th:text="${city.getId()}">City Id</p>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Nom</label>
+                    <p class="flow-text" th:text="${city.getCityName()}">city name</p>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Ville Id</label>
+                    <p class="flow-text" th:text="${city.getCityId()}" id="cityId">city id</p>
+                </div>
+            </form>
+        </div>
+        <div class="col s12 m8 weather__plot">
+
+            <div id="openweathermap-widget-15"></div>
+
+        </div>
+    </div>
+</div>
+
+
+<script src='//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script>
+<script>
+    window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];
+
+    var cityId = document.getElementById('cityId').innerHTML;
+
+window.myWidgetParam.push({id: 15,cityid: cityId, appid: 'ed44fa38b5bbe971baf8f57c713e8e47',units:
+        'metric',containerid: 'openweathermap-widget-15',  });
+  (function() {var script = document.createElement('script');
+script.async = true;
+script.charset = "utf-8";
+script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
+var s = document.getElementsByTagName('script')[0];
+s.parentNode.insertBefore(script, s);
+  })();
+</script>
+</body>
+</html>
+
+

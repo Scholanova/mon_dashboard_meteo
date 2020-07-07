@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../static/css/materialize.min.css" th:href="@{/css/materialize.min.css}" rel="stylesheet" media="screen"/>
+    <link href="../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" media="screen"/>
+</head>
+
+<body>
+    <div th:fragment="header">
+        <nav>
+            <div class="nav-wrapper">
+                <a class="brand-logo" href="#" th:href="@{/main}">Weather Dashboard</a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="#" th:href="@{/cities}">Villes</a></li>
+                    <li><a href="#" th:href="@{/city/new}">Ajouter</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="jumbotron">
+            <h1>Weather Dashboard</h1>
+            <h2>Trouvez toutes les informations du météo de vos villes préférés</h2>
+        </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Weather app </title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+
+<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+
+<div class="container">
+    <div th:if="${not #lists.isEmpty(cities)}">
+        <h2>Liste villes</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>#</th>
+                <th>Id</th>
+                <th>Id Ville</th>
+                <th>Nom</th>
+                <th>Code Postal</th>
+                <th>#</th>
+                <th>#</th>
+            </tr>
+            <tr th:each="city : ${cities}">
+                <td th:text="${city.getId()}"><a href="/city/${city.id}"></a></td>
+                <td th:text="${city.getCityId()}"> </td>
+                <td th:text="${city.getCityName()}"> </td>
+                <td th:text="${city.getCountryCode()}"> </td>
+                <td><a th:href="${ '/city/' + city.id}">Afficher details</a></td>
+                <!--<td><a th:href="${'/city/edit/' + city.id}">Edycja</a></td>-->
+                <td><a th:href="${'/city/delete/' + city.id}">Supprimer</a></td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html>

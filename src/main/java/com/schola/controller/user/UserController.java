@@ -29,7 +29,7 @@ public class UserController {
     public ModelAndView loginGet() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             if (!(auth instanceof AnonymousAuthenticationToken)) {
-                return new ModelAndView("redirect:/main/main");
+                return new ModelAndView("redirect:/main");
             }
             return new ModelAndView("/");
     }
