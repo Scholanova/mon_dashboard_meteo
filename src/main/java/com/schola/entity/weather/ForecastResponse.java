@@ -7,12 +7,12 @@ public class ForecastResponse{
     private String insee;               // Code Insee de la commune
     private int day;                    // Jour entre 0 et 13 (Pour le jour même : 0, pour le lendemain : 1, etc.)
     private String datetime;            // Date en heure locale
-    private int probarain;              // Probabilité de pluie entre 0 et 100%
     private int weather;                // Temps sensible (Code temps)
     private int tmin;                   // Température minimale
     private int tmax;                   // Température maximale
     private int sun_hours;              // Ensoleillement en heures
-    private int probafrostv;            // Probabilité de gel entre 0 et 100%
+    private int probarain;              // Probabilité de pluie entre 0 et 100%
+    private int probafrost;            // Probabilité de gel entre 0 et 100%
     private int probafog;               // Probabilité de brouillard entre 0 et 100%
 
     public String getInsee() {
@@ -37,14 +37,6 @@ public class ForecastResponse{
 
     public void setDatetime(String datetime) {
         this.datetime = datetime;
-    }
-
-    public int getProbarain() {
-        return probarain;
-    }
-
-    public void setProbarain(int probarain) {
-        this.probarain = probarain;
     }
 
     public int getWeather() {
@@ -79,12 +71,20 @@ public class ForecastResponse{
         this.sun_hours = sun_hours;
     }
 
-    public int getProbafrostv() {
-        return probafrostv;
+    public int getProbarain() {
+        return probarain;
     }
 
-    public void setProbafrostv(int probafrostv) {
-        this.probafrostv = probafrostv;
+    public void setProbarain(int probarain) {
+        this.probarain = probarain;
+    }
+
+    public int getProbafrost() {
+        return probafrost;
+    }
+
+    public void setProbafrost(int probafrost) {
+        this.probafrost = probafrost;
     }
 
     public int getProbafog() {
