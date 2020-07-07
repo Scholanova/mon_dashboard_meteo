@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collections;
@@ -29,18 +28,17 @@ public class UserController {
     @GetMapping("/login")
     public ModelAndView loginGet() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            return new ModelAndView("redirect:/");
-        }
-        return new ModelAndView("authentification/login");
+            if (!(auth instanceof AnonymousAuthenticationToken)) {
+                return new ModelAndView("redirect:/main/main");
+            }
+            return new ModelAndView("/");
     }
 
     // Login form with error
-    @GetMapping("/error")
+    @GetMapping("/index-error")
     public String loginError(Model model) {
         model.addAttribute("loginError", true);
-        return "authentification/login";
+        return "index";
     }
 
 
@@ -56,7 +54,7 @@ public class UserController {
         return new ModelAndView("authentification/register");
     }
 
-    @GetMapping("/inscription-error")
+    @GetMapping("/register-error")
     public String getRegistredWithError(Model model) {
         model.addAttribute("registrationError", true);
 
@@ -65,18 +63,18 @@ public class UserController {
 
 
     @PostMapping("/register")
-    public ModelAndView postRegistred(@RequestParam("email") String email,
+    public ModelAndView postRegistred(@RequestParam("username") String username,
                                       @RequestParam("password") String password,
                                       @RequestParam("firstName") String firstName,
                                       @RequestParam("lastName") String lastName) {
         try {
-            User user = new User(email, password, firstName, lastName);
+            User user = new User(username, password, firstName, lastName,Collections.singleton(Role.USER));
             userRepository.save(user);
 
-            return new ModelAndView("redirect:" + "/login   ");
+            return new ModelAndView("redirect:" + "/");
 
         } catch (Exception e) {
-            return new ModelAndView("redirect:" + "/error");
+            return new ModelAndView("redirect:" + "/register-error");
         }
     }
 
