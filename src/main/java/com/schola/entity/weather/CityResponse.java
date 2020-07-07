@@ -1,4 +1,4 @@
-package com.schola.entity;
+package com.schola.entity.weather;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
