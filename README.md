@@ -11,7 +11,8 @@ Projet 2020 - Mon dashboard météo
 - https://api.meteo-concept.com/
 
 ## Scalingo
-https://my.osc-fr1.scalingo.com/apps/mon-dashboard-meteo/code
+- https://mon-dashboard-meteo.osc-fr1.scalingo.io
+- https://my.osc-fr1.scalingo.com/apps/mon-dashboard-meteo/code
 
 ## Aspect fonctionnel
 Les utilisateurs ont un profil avec dedans :
