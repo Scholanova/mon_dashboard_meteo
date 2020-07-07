@@ -4,7 +4,7 @@
 
 -- TRUNCATE TABLE public.USERLOCATION;
 
-INSERT INTO public.USERLOCATION (user_id, location_id)
+INSERT INTO public.USERLOCATION (id_user, location_id)
  VALUES
  (1, 1),
  (2, 3),

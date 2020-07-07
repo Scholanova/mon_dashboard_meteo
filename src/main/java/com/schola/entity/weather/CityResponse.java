@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class CityResponse{
     private String insee;
+    private String cp;
     private  String name;
 
     public String getInsee() {
@@ -14,6 +15,14 @@ public class CityResponse{
 
     public void setInsee(String insee) {
         this.insee = insee;
+    }
+
+    public String getCp() {
+        return cp;
+    }
+
+    public void setCp(String cp) {
+        this.cp = cp;
     }
 
     public String getName() {
