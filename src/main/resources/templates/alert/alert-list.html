@@ -11,16 +11,16 @@
 
 <table>
     <tr>
-        <th>Date</th>
+        <th>Caption</th>
         <th>Days</th>
         <th>Hour</th>
         <th>Location</th>
     </tr>
     <tr th:each="alert : ${alerts}">
-        <td><span th:text="${alert.date}" /></td>
+        <td><span th:text="${alert.caption}" /></td>
         <td><span th:text="${alert.days}" /></td>
         <td><span th:text="${alert.hour}" /></td>
-        <td><sapn th:text="${alert.location}"/></td>
+        <td><sapn th:text="${alert.locationId}"/></td>
     </tr>
 </table>
 
