@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS public.ALERT (
   days          VARCHAR(255),
   hour          TIME,
   date          TIMESTAMP,
-  user_id       INTEGER NOT NULL,
+  ID_USER      INTEGER NOT NULL,
   location_id   INTEGER NOT NULL,
   PRIMARY KEY (id)
 );
