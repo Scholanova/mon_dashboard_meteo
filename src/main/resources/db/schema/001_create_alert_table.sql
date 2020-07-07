@@ -10,5 +10,7 @@ CREATE TABLE IF NOT EXISTS public.ALERT (
   date          TIMESTAMP,
   ID_USER      INTEGER NOT NULL,
   location_id   INTEGER NOT NULL,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  FOREIGN KEY (ID_USER) REFERENCES public.USER(ID_USER),
+  FOREIGN KEY (location_id) REFERENCES public.LOCATION(id)
 );
