@@ -1,11 +1,10 @@
-package com.schola.models;
+package com.schola.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.LocalDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
-
-public class weather {
+public class Weather {
 
     private String insee;               // Code Insee de la commune
     private int day;                    // Jour entre 0 et 13 (Pour le jour même : 0, pour le lendemain : 1, etc.)
@@ -18,11 +17,11 @@ public class weather {
     private int sunHours;               // Ensoleillement en heures
     private int probaFrost;             // Probabilité de gel entre 0 et 100%
 
-    public weather(){
+    public Weather(){
 
     }
 
-    public weather(String insee, int day, LocalDateTime datetime, int probaRain, int weather, int temp, int tMin, int tMax, int sunHours, int probaFrost) {
+    public Weather(String insee, int day, LocalDateTime datetime, int probaRain, int weather, int temp, int tMin, int tMax, int sunHours, int probaFrost) {
         this.insee = insee;
         this.day = day;
         this.datetime = datetime;
@@ -113,5 +112,21 @@ public class weather {
 
     public void setProbaFrost(int probaFrost) {
         this.probaFrost = probaFrost;
+    }
+
+    @Override
+    public String toString() {
+        return "Méteo{" +
+                "Insee de la commune =" + insee +
+                ", jour ='" + day + '\'' +
+                ", Date et heure locale ='" + datetime + '\'' +
+                ", Risque de pluie ='" + probaRain + '\'' +
+                ", Temps =" + weather +
+                ", Température locale =" + temp +
+                ", Température minimale =" + tMin +
+                ", Température maximale =" + tMax +
+                ", Ensoleillement =" + sunHours +
+                ", Risque de gel =" + probaFrost +
+                '}';
     }
 }
