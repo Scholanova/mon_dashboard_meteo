@@ -16,8 +16,11 @@ CREATE TABLE IF NOT EXISTS public.USER(
 --changeset scholanova:1
 CREATE TABLE IF NOT EXISTS public.LOCATION (
   id    SERIAL NOT NULL,
-  name	VARCHAR(255),
-  insee	VARCHAR(255),
+  city_id	VARCHAR(255),
+  city_name	VARCHAR(255),
+  country_code	VARCHAR(255),
+  city_lat	VARCHAR(255),
+  city_lon	VARCHAR(255),
 PRIMARY KEY (id)
 );
 

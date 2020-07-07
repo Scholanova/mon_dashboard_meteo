@@ -1,4 +1,7 @@
 package com.schola.repository;
 
-public interface CityRepository {
+import com.schola.entity.city.City;
+import org.springframework.data.repository.CrudRepository;
+
+public interface CityRepository extends CrudRepository<City, Integer> {
 }
