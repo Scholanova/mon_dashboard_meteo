@@ -5,7 +5,7 @@
 -- TRUNCATE TABLE public.USER;
 -- TRUNCATE TABLE public.LOCATION;
 
-INSERT INTO public.USER (lastname, firstname, email, password)
+INSERT INTO public.USER (lastname, firstname, username, password)
  VALUES
  ('Rébecca', 'Armand', 're.armand@meteo.fr', 'manomano'),
  ('Aimée', 'Hebert', 'ai.hebert@meteo.fr', 'manomano'),
