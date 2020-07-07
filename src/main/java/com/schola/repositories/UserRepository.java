@@ -1,19 +1,10 @@
 package com.schola.repositories;
 
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Repository;
+import com.schola.entities.Location;
 
-@Repository
-public class UserRepository {
+import java.util.List;
 
-    private final NamedParameterJdbcTemplate jdbcTemplate;
 
-    public UserRepository(NamedParameterJdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
-
-//    public User create(User userToCreate) {
-//        return null;
-//    }
-
+public interface UserRepository {
+    List<Location> getFavoritesLocations(Long id);
 }
