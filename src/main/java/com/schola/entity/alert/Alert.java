@@ -7,6 +7,7 @@ import org.springframework.util.StringUtils;
 import javax.persistence.*;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Collectors;
@@ -33,6 +34,8 @@ public class Alert  {
     private Long userId;
     @Column(name = "location_id")
     private Long locationId;
+    private String locationName;
+    private ArrayList<String> dayslist;
 
 
     public Alert() {

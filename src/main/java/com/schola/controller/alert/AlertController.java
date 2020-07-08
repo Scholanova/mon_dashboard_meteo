@@ -3,15 +3,10 @@ package com.schola.controller.alert;
 import com.schola.entity.location.Location;
 import com.schola.entity.user.User;
 import com.schola.repository.UserRepository;
-import com.schola.repository.alert.AlertRepository;
 import com.schola.entity.alert.Alert;
-import com.schola.repository.alert.AlertRepository;
 import com.schola.services.LocationService;
 import com.schola.services.UserLocationService;
 import com.schola.services.alert.AlertService;
-import com.schola.services.user.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -19,9 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -44,7 +37,41 @@ public class AlertController {
     public String listAlert(Model model) {
         List<Alert> alerts = alertService.listAll();
 
+        alerts.forEach(alert -> {
+            alert.setLocationName(locationService.findById(alert.getLocationId()).get().getName());
+            ArrayList<String> days = new ArrayList<>();
+            for (int i = 0; i < alert.getDays().length(); i++) {
+                String day = "" + alert.getDays().charAt(i);
+                if (Integer.parseInt(day) == 1) {
+                    days.add("Lundi");
+                }
+                if (Integer.parseInt(day) == 2) {
+                    days.add("Mardi");
+                }
+                if (Integer.parseInt(day) == 3) {
+                    days.add("Mercredi");
+                }
+                if (Integer.parseInt(day) == 4) {
+                    days.add("Jeudi");
+                }
+                if (Integer.parseInt(day) == 5) {
+                    days.add("Vendredi");
+                }
+                if (Integer.parseInt(day) == 6) {
+                    days.add("Samedi");
+                }
+                if (Integer.parseInt(day) == 7) {
+                    days.add("Dimanche");
+                }
+
+
+            }
+            alert.setDayslist(days);
+        });
+
+
         model.addAttribute("alerts", alerts);
+        //model.addAttribute("daysList",)
         return "alert/alert-list";
     }
 

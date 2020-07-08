@@ -1,14 +1,69 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<header th:replace="header/header::header"></header>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
-    <title>Login V3</title>
+    <title>Acceuil</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="description" content="Blueprint: Horizontal Slide Out Menu" />
+    <meta name="keywords" content="horizontal, slide out, menu, navigation, responsive, javascript, images, grid" />
+    <meta name="author" content="Codrops" />
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../menu/css/default.css" />
+    <link rel="stylesheet" type="text/css" href="../menu/css/component.css" />
+    <script src="../menu/js/modernizr.custom.js"></script>
     <!--===============================================================================================-->
 </head>
 <body>
+<div class="container">
+    <header class="clearfix">
+        <span>ScholaNova <span class="bp-icon bp-icon-about" data-content="The Blueprints are a collection of basic and minimal website concepts, components, plugins and layouts with minimal style for easy adaption and usage, or simply for inspiration."></span></span>
+        <h1>Weather Dashboard</h1>
+    </header>
+    <div class="main">
+        <nav class="cbp-hsmenu-wrapper" id="cbp-hsmenu-wrapper">
+            <div class="cbp-hsinner">
+                <ul class="cbp-hsmenu">
+                    <li>
+                        <a href="../main">Acceuil</a>
+                    </li>
+                    <li>
+                        <a href="../alert">Alertes</a>
+                    </li>
+                    <li>
+                        <a href="#">Profil Utilisateur</a>
+                    </li>
+                    <li>                    <a sec:authorize="isAnonymous()" th:href="@{/logout}">Déconnexion</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+<script src="js/cbpHorizontalSlideOutMenu.min.js"></script>
+<script>
+			var menu = new cbpHorizontalSlideOutMenu( document.getElementById( 'cbp-hsmenu-wrapper' ) );
+		</script>
+
+
+<h1>Favorite Locations List</h1>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Content</th>
+    </tr>
+    <tr th:each="location : ${locations}">
+        <td><span th:text="${location.name}" /></td>
+        <td>empty content</td>
+    </tr>
+</table>
+
+<div th:if="${#lists.isEmpty(locations)}">
+    <p> Your favorite locations list is empty</p>
+</div>
+
 
 </body>
 </html>
