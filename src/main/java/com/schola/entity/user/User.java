@@ -79,7 +79,6 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "location_id"))
     private List<Location> favoritesLocations = new ArrayList<>();
 
-
     public User() {
         this.accountNonExpired = true;
         this.accountNonLocked = true;

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<header th:replace="header/header::header"></header>
+<head>
+    <title>My Weather Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<h1 th:text="${response.getCity().getName()}"/>
+<p th:text="${response.getCity().getCp()}"/>
+
+<h3 th:text="${response.getForecast().getDatetime()}"/>
+
+
+<div>
+    <h2> Weather Informations</h2>
+    <span>Weather <p th:text="${response.getForecast().getWeather()}"/></span>
+    <span>Minimun temperature <p th:text="${response.getForecast().getTmin()}"/></span>
+    <span>Maximum temperature <p th:text="${response.getForecast().getTmax()}"/></span>
+    <span>Sun hours <p th:text="${response.getForecast().getSun_hours()}"/></span>
+    <span>Risk of rain <p th:text="${response.getForecast().getProbarain()}"/></span>
+    <span>Risk of frost <p th:text="${response.getForecast().getProbafrost()}"/></span>
+    <span>Risk of fog <p th:text="${response.getForecast().getProbafog()}"/></span>
+</div>
+
+</body>
+</html>

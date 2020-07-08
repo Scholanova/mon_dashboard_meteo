@@ -1,4 +1,3 @@
-
 package com.schola.controller.user;
 
 
@@ -95,5 +94,4 @@ public class UserController {
 
         return new ModelAndView("location/location-list") ;
     }
-
 }

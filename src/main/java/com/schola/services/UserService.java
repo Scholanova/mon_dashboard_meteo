@@ -1,5 +1,6 @@
 package com.schola.services;
 
+
 import com.schola.entity.location.Location;
 import com.schola.repository.UserRepository;
 import com.schola.entity.user.User;
