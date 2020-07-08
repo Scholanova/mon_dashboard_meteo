@@ -1,4 +1,4 @@
-package com.schola.services;
+package com.schola.services.user;
 
 
 import com.schola.entity.location.Location;

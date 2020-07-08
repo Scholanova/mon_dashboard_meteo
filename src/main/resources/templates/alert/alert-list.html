@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <title>Alert list</title>
+</head>
+<body>
+
+<h1>Listes Aalertes</h1>
+
+<table>
+    <tr>
+        <th>Caption</th>
+        <th>Days</th>
+        <th>Hour</th>
+        <th>Location</th>
+    </tr>
+    <tr th:each="alert : ${alerts}">
+        <td><span th:text="${alert.caption}" /></td>
+        <td><span th:text="${alert.days}" /></td>
+        <td><span th:text="${alert.hour}" /></td>
+        <td><sapn th:text="${alert.locationId}"/></td>
+    </tr>
+</table>
+
+
+
+<div th:if="${#lists.isEmpty(alerts)}">
+    <p> La liste des alertes est vide</p>
+</div>
+
+</body>
+</html>
