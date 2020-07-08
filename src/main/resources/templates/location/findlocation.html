@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<header th:replace="header/header::header"></header>
+<head>
+    <title>My Weather Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<h1>Cities found</h1>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Insee</th>
+        <th>Weather</th>
+    </tr>
+    <tr th:each="LocationResponse : ${response}">
+        <td><span th:text="${LocationResponse.getNom()}" /></td>
+        <td><span th:text="${LocationResponse.getCode()}" /></td>
+        <td><a th:href="@{'../weatherlocation/' + ${LocationResponse.getCode()}}"><button>Weather here !</button></a></td>
+    </tr>
+
+</table>
+
+</body>
+</html>

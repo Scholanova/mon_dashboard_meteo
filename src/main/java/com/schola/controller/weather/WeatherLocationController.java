@@ -12,6 +12,9 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class WeatherLocationController {
 
+    private static String TOKEN = "f115ae23198fc26a272240ff66aeca014ca2aaed4c0314ec35e63ae6e96b7438";
+    private static String DAYSEARCH = "0";
+
     @Autowired
     RestTemplate restemplate;
 
@@ -22,9 +25,9 @@ public class WeatherLocationController {
     }*/
 
     @GetMapping("/weatherlocation/{insee}")
-    public ModelAndView testMeteo(@PathVariable String insee, Model model) {
-        ConceptMeteoResponse response = restemplate.getForObject("https://api.meteo-concept.com/api/forecast/daily/0?token=f115ae23198fc26a272240ff66aeca014ca2aaed4c0314ec35e63ae6e96b7438&insee="+ insee, ConceptMeteoResponse.class);
+    public ModelAndView weatherLocation(@PathVariable String insee, Model model) {
+        ConceptMeteoResponse response = restemplate.getForObject("https://api.meteo-concept.com/api/forecast/daily/" + DAYSEARCH + "?token=" + TOKEN + "&insee="+ insee, ConceptMeteoResponse.class);
         model.addAttribute("response", response);
-        return new ModelAndView("main/weatherlocation");
+        return new ModelAndView("weather/weatherlocation");
     }
 }

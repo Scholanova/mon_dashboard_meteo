@@ -1,25 +1,37 @@
 package com.schola.controller.user;
 
 
+import com.schola.entity.location.Location;
 import com.schola.repository.UserRepository;
 import com.schola.entity.user.Role;
 import com.schola.entity.user.User;
+import com.schola.services.UserLocationService;
+import org.hibernate.Hibernate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collections;
+import java.util.List;
 
 @Controller
 public class UserController {
 
+    Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    @Autowired
+    UserLocationService userLocationService;
 
     @Autowired
     private UserRepository userRepository;
@@ -28,10 +40,10 @@ public class UserController {
     @GetMapping("/login")
     public ModelAndView loginGet() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            if (!(auth instanceof AnonymousAuthenticationToken)) {
-                return new ModelAndView("redirect:/main/main");
-            }
-            return new ModelAndView("/");
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+            return new ModelAndView("redirect:/main/main");
+        }
+        return new ModelAndView("/");
     }
 
     // Login form with error
@@ -78,4 +90,15 @@ public class UserController {
         }
     }
 
+    @GetMapping("/favorites-locations")
+    public ModelAndView listLocationsByUserId(@AuthenticationPrincipal User user, Model model) {
+
+        if(user == null)
+            return new ModelAndView("redirect:" + "/");
+
+        List<Location> locations = userLocationService.getUserLocations(user.getUsername());
+        model.addAttribute("locations", locations);
+
+        return new ModelAndView("location/location-list") ;
+    }
 }
