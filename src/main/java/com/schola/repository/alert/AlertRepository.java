@@ -16,4 +16,5 @@ import java.util.Map;
 public interface AlertRepository extends JpaRepository<Alert, Integer> {
 
 
+
 }

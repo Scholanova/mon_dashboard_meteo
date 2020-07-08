@@ -90,15 +90,5 @@ public class UserController {
         }
     }
 
-    @GetMapping("/favorites-locations")
-    public ModelAndView listLocationsByUserId(@AuthenticationPrincipal User user, Model model) {
 
-        if(user == null)
-            return new ModelAndView("redirect:" + "/");
-
-        List<Location> locations = userLocationService.getUserLocations(user.getUsername());
-        model.addAttribute("locations", locations);
-
-        return new ModelAndView("location/location-list") ;
-    }
 }
