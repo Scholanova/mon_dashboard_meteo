@@ -7,6 +7,8 @@ import com.schola.entity.user.Role;
 import com.schola.entity.user.User;
 import com.schola.services.UserLocationService;
 import org.hibernate.Hibernate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,6 +27,8 @@ import java.util.List;
 
 @Controller
 public class UserController {
+
+    Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     UserLocationService userLocationService;
@@ -86,8 +90,11 @@ public class UserController {
         }
     }
 
-    @GetMapping("/locations")
+    @GetMapping("/favorites-locations")
     public ModelAndView listLocationsByUserId(@AuthenticationPrincipal User user, Model model) {
+
+        if(user == null)
+            return new ModelAndView("redirect:" + "/");
 
         List<Location> locations = userLocationService.getUserLocations(user.getUsername());
         model.addAttribute("locations", locations);
