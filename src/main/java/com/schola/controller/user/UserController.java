@@ -98,7 +98,6 @@ public class UserController {
 
         List<Location> locations = userLocationService.getUserLocations(user.getUsername());
         model.addAttribute("locations", locations);
-
         return new ModelAndView("location/location-list") ;
     }
 }

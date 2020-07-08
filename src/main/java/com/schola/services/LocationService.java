@@ -16,4 +16,8 @@ public class LocationService {
 
     public Optional<Location> findById(Long id) { return locationRepository.findById(id); }
     public List<Location> findAll() { return locationRepository.findAll(); }
+    public Location findByName(String name){
+        return  locationRepository.findByName(name);
+    }
+
 }

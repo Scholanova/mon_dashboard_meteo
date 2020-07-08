@@ -75,7 +75,7 @@ public class User implements UserDetails {
     })
     @JoinTable(
             name = "UserLocation",
-            joinColumns = @JoinColumn(name = "id_user"),
+            joinColumns = @JoinColumn(name = "id_user",insertable = true, updatable = true),
             inverseJoinColumns = @JoinColumn(name = "location_id"))
     private List<Location> favoritesLocations = new ArrayList<>();
 

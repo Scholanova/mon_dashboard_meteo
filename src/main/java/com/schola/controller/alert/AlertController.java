@@ -1,10 +1,13 @@
 package com.schola.controller.alert;
 
+import com.schola.entity.location.Location;
 import com.schola.entity.user.User;
 import com.schola.repository.UserRepository;
 import com.schola.repository.alert.AlertRepository;
 import com.schola.entity.alert.Alert;
 import com.schola.repository.alert.AlertRepository;
+import com.schola.services.LocationService;
+import com.schola.services.UserLocationService;
 import com.schola.services.alert.AlertService;
 import com.schola.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +29,15 @@ public class AlertController {
 
     private AlertService alertService;
     private UserRepository userRepository;
+    private UserLocationService userLocationService;
+    private LocationService locationService;
 
 
-    public AlertController(AlertService alertService, UserRepository userRepository) {
+    public AlertController(AlertService alertService, UserRepository userRepository, UserLocationService userLocationService, LocationService locationService) {
         this.alertService = alertService;
         this.userRepository = userRepository;
+        this.userLocationService = userLocationService;
+        this.locationService = locationService;
     }
 
     @GetMapping("/alert")
@@ -98,7 +105,9 @@ public class AlertController {
                 days = days.concat("7");
 
 
-        Alert alert = new Alert(caption, isReccurent, days, hour, date, user.getIdUser(), 1L);
+        //Location location = locationService.findByName(locationId);
+
+        Alert alert = new Alert(caption, isReccurent, days, hour, date, user.getIdUser(), Long.parseLong(locationId));
         alertService.saveAlert(alert);
         return "redirect:/alert";
     }
@@ -106,6 +115,16 @@ public class AlertController {
     @RequestMapping("alert/new")
     public ModelAndView newAlert(Model model) {
         model.addAttribute("myBooleanVariable", Boolean.FALSE);
+        String username = "";
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        User user = userRepository.findByUsername(username);
+        List<Location> locations = userLocationService.getUserLocations(user.getUsername());
+        model.addAttribute("locations", locations);
         return new ModelAndView("alert/alert-add");
     }
 

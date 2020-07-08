@@ -33,4 +33,10 @@ public class LocationController {
         return locationService.findAll();
     }
 
+    @GetMapping("/name/{name}")
+    public Location getLocationByName(@PathVariable("name") String name) {
+        logger.info("NAME" + name);
+        return locationService.findByName(name);
+    }
+
 }
