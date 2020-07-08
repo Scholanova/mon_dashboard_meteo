@@ -59,11 +59,11 @@
                     </label>
                 </div>
 
-                <div th:if="${myBooleanVariable == true}" id="dayslocal">
+                <div  id="dayslocal">
                     <div class="contact100-form-checkbox">
-                        <input class="input-checkbox100" id="lundi" type="checkbox"  name="lundi" autofocus="autofocus">
-                        <label class="label-checkbox100" for="lundi">
-                           Lundi
+                        <input class="input-checkbox100" id="Lundi" type="checkbox"  name="Lundi" autofocus="autofocus">
+                        <label class="label-checkbox100" for="Lundi">
+                            Lundi
                         </label>
                     </div>
                     <div class="contact100-form-checkbox">
@@ -81,7 +81,7 @@
                     <div class="contact100-form-checkbox">
                         <input class="input-checkbox100" id="Jeudi" type="checkbox"  name="Jeudi" autofocus="autofocus">
                         <label class="label-checkbox100" for="Jeudi">
-                           Jeudi
+                            Jeudi
                         </label>
                     </div>
                     <div class="contact100-form-checkbox">
@@ -111,10 +111,10 @@
                     <input class="input100" type="text" name="days" placeholder="Dayysysysyss" id="days"  autofocus="autofocus" >
                 </div-->
 
-                <div th:if="${myBooleanVariable == false}" id="hourlocal">
+                <div  id="hourlocal">
                     <div class="wrap-input100 validate-input" data-validate = "Enter hour">
-                    <input class="input100" type="time" step="1" name="hour" placeholder="Heure" id="hour" autofocus="autofocus" >
-                </div>
+                        <input class="input100" type="time" step="1" name="hour" placeholder="Heure" id="hour" autofocus="autofocus" >
+                    </div>
                 </div>
 
 
@@ -123,18 +123,8 @@
 document.getElementById('isReccurent').onclick = function() {
     // access properties using this keyword
     if ( this.checked ) {
-  var x = document.getElementById("datelocal");
-                x.style.display = "block";
 
-                 var y = document.getElementById("hourlocal");
-                y.style.display = "none";
-
-                var z = document.getElementById("dayslocal");
-                z.style.display = "none";
-
-
-    } else {
-    var x = document.getElementById("datelocal");
+var x = document.getElementById("datelocal");
                 x.style.display = "none";
 
                  var y = document.getElementById("hourlocal");
@@ -142,8 +132,18 @@ document.getElementById('isReccurent').onclick = function() {
 
                 var z = document.getElementById("dayslocal");
                 z.style.display = "block";
-        // if not checked ...
 
+    } else {
+
+        // if not checked ...
+var x = document.getElementById("datelocal");
+                x.style.display = "block";
+
+                 var y = document.getElementById("hourlocal");
+                y.style.display = "none";
+
+                var z = document.getElementById("dayslocal");
+                z.style.display = "none";
 
     }
 };
@@ -179,11 +179,11 @@ document.getElementById('isReccurent').onclick = function() {
 
 </script>
 
-                <div th:if="${myBooleanVariable == true}" id="datelocal">
+                <div id="datelocal">
 
-                <div class="wrap-input100 validate-input" data-validate = "Enter date">
-                    <input class="input100" type="datetime-local"  name="date" placeholder="Date" id="date" autofocus="autofocus" >
-                </div>
+                    <div class="wrap-input100 validate-input" data-validate = "Enter date">
+                        <input class="input100" type="datetime-local"  name="date" placeholder="Date" id="date" autofocus="autofocus" >
+                    </div>
                 </div>
                 <div class="wrap-input100 validate-input" data-validate = "Choose location">
 

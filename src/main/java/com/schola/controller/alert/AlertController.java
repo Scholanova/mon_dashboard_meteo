@@ -54,8 +54,15 @@ public class AlertController {
                             @RequestParam(value = "days",required = false) String days,
                             @RequestParam(value = "hour",required = false) String hour,
                             @RequestParam(value = "date",required = false) String date,
-                            @RequestParam(value = "locationId",required = false) String locationId
-    ) {
+                            @RequestParam(value = "locationId",required = false) String locationId,
+                                                        @RequestParam(value = "Lundi",required = false) Boolean lundi,
+                            @RequestParam(value = "Mardi",required = false) Boolean Mardi,
+                            @RequestParam(value = "Mercredi",required = false) Boolean Mercredi,
+                            @RequestParam(value = "Jeudi",required = false) Boolean Jeudi,
+                            @RequestParam(value = "Vendredi",required = false) Boolean Vendredi,
+                            @RequestParam(value = "Samedi",required = false) Boolean Samedi,
+                            @RequestParam(value = "Dimanche",required = false) Boolean Dimanche
+                            ) {
 
         String username = "";
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -66,6 +73,29 @@ public class AlertController {
         }
 
         User user = userRepository.findByUsername(username);
+        days = "";
+
+        if(lundi!=null)
+        if(lundi.equals(true))
+            days.concat("1");
+        if(Mardi!=null)
+            if(Mardi.equals(true))
+            days.concat("2");
+        if(Mercredi!=null)
+            if(Mercredi.equals(true))
+            days.concat("3");
+        if(Jeudi!=null)
+            if(Jeudi.equals(true))
+            days.concat("4");
+        if(Vendredi!=null)
+            if(Vendredi.equals(true))
+            days.concat("5");
+        if(Samedi!=null)
+            if(Samedi.equals(true))
+            days.concat("6");
+        if(Dimanche!=null)
+            if(Dimanche.equals(true))
+            days.concat("7");
 
 
 
