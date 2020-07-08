@@ -48,29 +48,48 @@
 						Creation Alerte
 					</span>
 
-                <div class="wrap-input100 validate-input" data-validate = "Enter username">
-                    <input class="input100" type="text" name="username" placeholder="Email" id="username" required="required" autofocus="autofocus" >
+                <div class="wrap-input100 validate-input" data-validate = "Enter caption">
+                    <input class="input100" type="text" name="caption" placeholder="Titre" id="caption" required="required" autofocus="autofocus" >
                     <span class="focus-input100" data-placeholder="&#xf207;"></span>
                 </div>
 
-                <div class="wrap-input100 validate-input" data-validate="Enter password">
-                    <input class="input100" type="password" name="password" placeholder="Mot de Passe" id="password" required="required" autofocus="autofocus">
-                    <span class="focus-input100" data-placeholder="&#xf191;"></span>
+                <div class="contact100-form-checkbox">
+                    <input class="input-checkbox100" id="ckb1" type="checkbox" id="isReccurent" name="isReccurent" autofocus="autofocus">
+                    <label class="label-checkbox100" for="ckb1">
+                        Est Periodique ?
+                    </label>
                 </div>
 
-                <div class="wrap-input100 validate-input" data-validate = "Enter nom">
-                    <input class="input100" type="text" name="lastName" placeholder="Nom" id="lastName" required="required" autofocus="autofocus" >
+
+
+                <div class="wrap-input100 validate-input" data-validate = "Enter days">
+                    <input class="input100" type="text" name="days" placeholder="Dayysysysyss" id="days"  autofocus="autofocus" >
                     <span class="focus-input100" data-placeholder="&#xf207;"></span>
                 </div>
 
-                <div class="wrap-input100 validate-input" data-validate = "Enter prenom">
-                    <input class="input100" type="text" name="firstName" placeholder="Prenom" id="firstName" required="required" autofocus="autofocus" >
+                <input type="time" name="timestamp" step="1">
+
+
+                <div class="wrap-input100 validate-input" data-validate = "Enter hour">
+                    <input class="input100" type="time" step="1" name="hour" placeholder="Heure" id="hour" autofocus="autofocus" >
                     <span class="focus-input100" data-placeholder="&#xf207;"></span>
                 </div>
 
+                <div class="wrap-input100 validate-input" data-validate = "Enter date">
+                    <input class="input100" type="datetime-local"  name="date" placeholder="Date" id="date" autofocus="autofocus" >
+                    <span class="focus-input100" data-placeholder="&#xf207;"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate = "Choose location">
+
+                    <select class="input100" name="locationId" id="locationId">
+                        <option value="Paris"> Paris</option>
+                        <option value="villejuif"> Villejuif</option>
+                    </select>
+                </div>
                 <div class="container-login100-form-btn">
                     <button type="submit" class="login100-form-btn">
-                        S'inscrire
+                        Ajouter
                     </button>
                 </div>
 

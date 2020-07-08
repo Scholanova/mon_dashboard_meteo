@@ -30,15 +30,22 @@ public class Alert  {
     @Column(name = "date")
     private Timestamp date;
     @Column(name = "id_user")
-    private Integer userId;
+    private Long userId;
     @Column(name = "location_id")
-    private Integer locationId;
+    private Long locationId;
 
 
     public Alert() {
     }
 
 
-
-
+    public Alert(String caption, boolean isReccurent, String days, Time hour, Timestamp date, Long idUser, Long locationId) {
+        this.caption = caption;
+        this.isReccurent = isReccurent;
+        this.days =days;
+        this.hour = hour;
+        this.date = date;
+        this.userId = idUser;
+        this.locationId = locationId;
+    }
 }
