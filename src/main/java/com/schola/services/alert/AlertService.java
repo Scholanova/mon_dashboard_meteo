@@ -13,7 +13,22 @@ public class AlertService {
     public AlertService(AlertRepository alertRepository) {
         this.alertRepository = alertRepository;
     }
+
     public List<Alert> listAll() {
         return alertRepository.findAll();
+    }
+
+
+    public Alert getAlertById(Integer id) {
+        return alertRepository.findById(id).get();
+    }
+
+
+    public Alert saveAlert(Alert alert) {
+        return alertRepository.save(alert);
+    }
+
+    public void deleteAlert(Integer id) {
+        alertRepository.deleteById(id);
     }
 }
