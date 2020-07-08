@@ -49,20 +49,20 @@ public class AlertController {
     }
 
     @RequestMapping(value = "alert", method = RequestMethod.POST)
-    public String saveAlert(@RequestParam(value = "caption",required = true) String caption,
-                            @RequestParam(value = "isReccurent",required = false)  Boolean isReccurent,
-                            @RequestParam(value = "days",required = false) String days,
-                            @RequestParam(value = "hour",required = false) String hour,
-                            @RequestParam(value = "date",required = false) String date,
-                            @RequestParam(value = "locationId",required = false) String locationId,
-                                                        @RequestParam(value = "Lundi",required = false) Boolean lundi,
-                            @RequestParam(value = "Mardi",required = false) Boolean Mardi,
-                            @RequestParam(value = "Mercredi",required = false) Boolean Mercredi,
-                            @RequestParam(value = "Jeudi",required = false) Boolean Jeudi,
-                            @RequestParam(value = "Vendredi",required = false) Boolean Vendredi,
-                            @RequestParam(value = "Samedi",required = false) Boolean Samedi,
-                            @RequestParam(value = "Dimanche",required = false) Boolean Dimanche
-                            ) {
+    public String saveAlert(@RequestParam(value = "caption", required = true) String caption,
+                            @RequestParam(value = "isReccurent", required = false) Boolean isReccurent,
+                            @RequestParam(value = "days", required = false) String days,
+                            @RequestParam(value = "hour", required = false) String hour,
+                            @RequestParam(value = "date", required = false) String date,
+                            @RequestParam(value = "locationId", required = false) String locationId,
+                            @RequestParam(value = "Lundi", required = false) Boolean lundi,
+                            @RequestParam(value = "Mardi", required = false) Boolean Mardi,
+                            @RequestParam(value = "Mercredi", required = false) Boolean Mercredi,
+                            @RequestParam(value = "Jeudi", required = false) Boolean Jeudi,
+                            @RequestParam(value = "Vendredi", required = false) Boolean Vendredi,
+                            @RequestParam(value = "Samedi", required = false) Boolean Samedi,
+                            @RequestParam(value = "Dimanche", required = false) Boolean Dimanche
+    ) {
 
         String username = "";
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -75,28 +75,27 @@ public class AlertController {
         User user = userRepository.findByUsername(username);
         days = "";
 
-        if(lundi!=null)
-        if(lundi.equals(true))
-            days.concat("1");
-        if(Mardi!=null)
-            if(Mardi.equals(true))
-            days.concat("2");
-        if(Mercredi!=null)
-            if(Mercredi.equals(true))
-            days.concat("3");
-        if(Jeudi!=null)
-            if(Jeudi.equals(true))
-            days.concat("4");
-        if(Vendredi!=null)
-            if(Vendredi.equals(true))
-            days.concat("5");
-        if(Samedi!=null)
-            if(Samedi.equals(true))
-            days.concat("6");
-        if(Dimanche!=null)
-            if(Dimanche.equals(true))
-            days.concat("7");
-
+        if (lundi != null)
+            if (lundi.equals(true))
+                days = days.concat("1");
+        if (Mardi != null)
+            if (Mardi.equals(true))
+                days = days.concat("2");
+        if (Mercredi != null)
+            if (Mercredi.equals(true))
+                days = days.concat("3");
+        if (Jeudi != null)
+            if (Jeudi.equals(true))
+                days = days.concat("4");
+        if (Vendredi != null)
+            if (Vendredi.equals(true))
+                days = days.concat("5");
+        if (Samedi != null)
+            if (Samedi.equals(true))
+                days = days.concat("6");
+        if (Dimanche != null)
+            if (Dimanche.equals(true))
+                days = days.concat("7");
 
 
         Alert alert = new Alert(caption, isReccurent, days, hour, date, user.getIdUser(), 1L);
@@ -106,7 +105,7 @@ public class AlertController {
 
     @RequestMapping("alert/new")
     public ModelAndView newAlert(Model model) {
-        model.addAttribute("myBooleanVariable",Boolean.FALSE);
+        model.addAttribute("myBooleanVariable", Boolean.FALSE);
         return new ModelAndView("alert/alert-add");
     }
 
