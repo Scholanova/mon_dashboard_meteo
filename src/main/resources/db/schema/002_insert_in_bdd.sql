@@ -4,7 +4,7 @@
 
 -- TRUNCATE TABLE public.ALERT;
 
-INSERT INTO public.ALERT (caption, isrecurrent, days, hour, date, user_id, location_id)
+INSERT INTO public.ALERT (caption, isrecurrent, days, hour, date, id_user, location_id)
  VALUES
  ('Velo', 'true', '24', '18:00:00', NULL, 1, 1),
  ('Velo', 'true', '13', '16:00:00', NULL, 2, 3),

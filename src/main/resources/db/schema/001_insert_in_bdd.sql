@@ -5,12 +5,13 @@
 -- TRUNCATE TABLE public.USER;
 -- TRUNCATE TABLE public.LOCATION;
 
-INSERT INTO public.USER (lastname, firstname, email, password)
+-- not for authentification // because pasword encdde must not be respect
+INSERT INTO public.USER (lastname, firstname, username, password,ACCOUNT_NON_EXPIRED,ACCOUNT_NON_LOCKED,CREDENTIALS_NON_EXPIRED,enabled)
  VALUES
- ('Rébecca', 'Armand', 're.armand@meteo.fr', 'manomano'),
- ('Aimée', 'Hebert', 'ai.hebert@meteo.fr', 'manomano'),
- ('Marielle', 'Pinheiro', 'ma.pinheiro@meteo.fr', 'manomano'),
- ('Hilaire', 'Savary', 'hi.savary@meteo.fr', 'manomano');
+ ('Rébecca', 'Armand', 're.armand@meteo.fr', 'manomano',true,true,true,true),
+ ('Aimée', 'Hebert', 'ai.hebert@meteo.fr', 'manomano',true,true,true,true),
+ ('Marielle', 'Pinheiro', 'ma.pinheiro@meteo.fr', 'manomano',true,true,true,true),
+ ('Hilaire', 'Savary', 'hi.savary@meteo.fr', 'manomano',true,true,true,true);
 
 INSERT INTO public.Location (name, insee)
  VALUES
