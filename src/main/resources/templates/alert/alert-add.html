@@ -50,36 +50,141 @@
 
                 <div class="wrap-input100 validate-input" data-validate = "Enter caption">
                     <input class="input100" type="text" name="caption" placeholder="Titre" id="caption" required="required" autofocus="autofocus" >
-                    <span class="focus-input100" data-placeholder="&#xf207;"></span>
                 </div>
 
                 <div class="contact100-form-checkbox">
-                    <input class="input-checkbox100" id="ckb1" type="checkbox" id="isReccurent" name="isReccurent" autofocus="autofocus">
-                    <label class="label-checkbox100" for="ckb1">
+                    <input class="input-checkbox100"  id="isReccurent" type="checkbox"  name="isReccurent" th:checked="${myBooleanVariable}" autofocus="autofocus">
+                    <label class="label-checkbox100" for="isReccurent">
                         Est Periodique ?
                     </label>
                 </div>
 
+                <div th:if="${myBooleanVariable == true}" id="dayslocal">
+                    <div class="contact100-form-checkbox">
+                        <input class="input-checkbox100" id="lundi" type="checkbox"  name="lundi" autofocus="autofocus">
+                        <label class="label-checkbox100" for="lundi">
+                           Lundi
+                        </label>
+                    </div>
+                    <div class="contact100-form-checkbox">
+                        <input class="input-checkbox100" id="Mardi" type="checkbox"  name="Mardi" autofocus="autofocus">
+                        <label class="label-checkbox100" for="Mardi">
+                            Mardi
+                        </label>
+                    </div>
+                    <div class="contact100-form-checkbox">
+                        <input class="input-checkbox100" id="Mercredi" type="checkbox"  name="Mercredi" autofocus="autofocus">
+                        <label class="label-checkbox100" for="Mercredi">
+                            Mercredi
+                        </label>
+                    </div>
+                    <div class="contact100-form-checkbox">
+                        <input class="input-checkbox100" id="Jeudi" type="checkbox"  name="Jeudi" autofocus="autofocus">
+                        <label class="label-checkbox100" for="Jeudi">
+                           Jeudi
+                        </label>
+                    </div>
+                    <div class="contact100-form-checkbox">
+                        <input class="input-checkbox100" id="Vendredi" type="checkbox"  name="Vendredi" autofocus="autofocus">
+                        <label class="label-checkbox100" for="Vendredi">
+                            Vendredi
+                        </label>
+                    </div>
+                    <div class="contact100-form-checkbox">
+                        <input class="input-checkbox100" id="Samedi" type="checkbox"  name="Samedi" autofocus="autofocus">
+                        <label class="label-checkbox100" for="Samedi">
+                            Samedi
+                        </label>
+                    </div>
+                    <div class="contact100-form-checkbox">
+                        <input class="input-checkbox100" id="Dimanche" type="checkbox"  name="Dimanche" autofocus="autofocus">
+                        <label class="label-checkbox100" for="Dimanche">
+                            Dimanche
+                        </label>
+                    </div>
+                </div>
 
 
-                <div class="wrap-input100 validate-input" data-validate = "Enter days">
+
+
+                <!--div class="wrap-input100 validate-input" data-validate = "Enter days">
                     <input class="input100" type="text" name="days" placeholder="Dayysysysyss" id="days"  autofocus="autofocus" >
-                    <span class="focus-input100" data-placeholder="&#xf207;"></span>
-                </div>
+                </div-->
 
-                <input type="time" name="timestamp" step="1">
-
-
-                <div class="wrap-input100 validate-input" data-validate = "Enter hour">
+                <div th:if="${myBooleanVariable == false}" id="hourlocal">
+                    <div class="wrap-input100 validate-input" data-validate = "Enter hour">
                     <input class="input100" type="time" step="1" name="hour" placeholder="Heure" id="hour" autofocus="autofocus" >
-                    <span class="focus-input100" data-placeholder="&#xf207;"></span>
                 </div>
+                </div>
+
+
+                <script>
+
+document.getElementById('isReccurent').onclick = function() {
+    // access properties using this keyword
+    if ( this.checked ) {
+  var x = document.getElementById("datelocal");
+                x.style.display = "block";
+
+                 var y = document.getElementById("hourlocal");
+                y.style.display = "none";
+
+                var z = document.getElementById("dayslocal");
+                z.style.display = "none";
+
+
+    } else {
+    var x = document.getElementById("datelocal");
+                x.style.display = "none";
+
+                 var y = document.getElementById("hourlocal");
+                y.style.display = "block";
+
+                var z = document.getElementById("dayslocal");
+                z.style.display = "block";
+        // if not checked ...
+
+
+    }
+};
+
+                function datelocal() {
+                var x = document.getElementById("datelocal");
+                if (x.style.display === "none") {
+                x.style.display = "block";
+                } else {
+                x.style.display = "none";
+                }
+                }
+
+                  function hourlocal() {
+                var x = document.getElementById("hourlocal");
+                if (x.style.display === "none") {
+                x.style.display = "block";
+                } else {
+                x.style.display = "none";
+                }
+                }
+
+
+                  function dayslocal() {
+                var x = document.getElementById("dayslocal");
+                if (x.style.display === "none") {
+                x.style.display = "block";
+                } else {
+                x.style.display = "none";
+                }
+                }
+
+
+</script>
+
+                <div th:if="${myBooleanVariable == true}" id="datelocal">
 
                 <div class="wrap-input100 validate-input" data-validate = "Enter date">
                     <input class="input100" type="datetime-local"  name="date" placeholder="Date" id="date" autofocus="autofocus" >
-                    <span class="focus-input100" data-placeholder="&#xf207;"></span>
                 </div>
-
+                </div>
                 <div class="wrap-input100 validate-input" data-validate = "Choose location">
 
                     <select class="input100" name="locationId" id="locationId">

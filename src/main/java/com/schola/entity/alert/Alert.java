@@ -22,13 +22,13 @@ public class Alert  {
     @Column(name = "caption")
     private String caption;
     @Column(name = "isrecurrent")
-    private boolean isReccurent;
+    private Boolean isReccurent;
     @Column(name = "days")
     private String days;
     @Column(name = "hour")
-    private Time hour;
+    private String hour;
     @Column(name = "date")
-    private Timestamp date;
+    private String date;
     @Column(name = "id_user")
     private Long userId;
     @Column(name = "location_id")
@@ -39,7 +39,7 @@ public class Alert  {
     }
 
 
-    public Alert(String caption, boolean isReccurent, String days, Time hour, Timestamp date, Long idUser, Long locationId) {
+    public Alert(String caption, Boolean isReccurent, String days, String hour, String date, Long idUser, Long locationId) {
         this.caption = caption;
         this.isReccurent = isReccurent;
         this.days =days;

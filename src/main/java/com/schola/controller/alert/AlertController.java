@@ -49,12 +49,12 @@ public class AlertController {
     }
 
     @RequestMapping(value = "alert", method = RequestMethod.POST)
-    public String saveAlert(@RequestParam("caption") String caption,
-                            @RequestParam("isRecurrent") boolean isReccurent,
-                            @RequestParam("days") String days,
-                            @RequestParam("hour") Time hour,
-                            @RequestParam("date") Timestamp date,
-                            @RequestParam("locationId") Long locationId
+    public String saveAlert(@RequestParam(value = "caption",required = true) String caption,
+                            @RequestParam(value = "isReccurent",required = false)  Boolean isReccurent,
+                            @RequestParam(value = "days",required = false) String days,
+                            @RequestParam(value = "hour",required = false) String hour,
+                            @RequestParam(value = "date",required = false) String date,
+                            @RequestParam(value = "locationId",required = false) String locationId
     ) {
 
         String username = "";
@@ -67,13 +67,16 @@ public class AlertController {
 
         User user = userRepository.findByUsername(username);
 
-        Alert alert = new Alert(caption, isReccurent, days, hour, date, user.getIdUser(), locationId);
+
+
+        Alert alert = new Alert(caption, isReccurent, days, hour, date, user.getIdUser(), 1L);
         alertService.saveAlert(alert);
-        return "redirect:/alert/alert-list";
+        return "redirect:/alert";
     }
 
-    @RequestMapping("alert")
+    @RequestMapping("alert/new")
     public ModelAndView newAlert(Model model) {
+        model.addAttribute("myBooleanVariable",Boolean.FALSE);
         return new ModelAndView("alert/alert-add");
     }
 
