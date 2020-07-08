@@ -1,5 +1,6 @@
 package com.schola.entity.user;
 
+import com.schola.entity.location.Location;
 import com.schola.shared.utils.BCryptManagerUtil;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
@@ -12,8 +13,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
@@ -65,6 +68,16 @@ public class User implements UserDetails {
 
     @Column(name = "enabled")
     private boolean enabled;
+
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(
+            name = "UserLocation",
+            joinColumns = @JoinColumn(name = "id_user"),
+            inverseJoinColumns = @JoinColumn(name = "location_id"))
+    private List<Location> favoritesLocations = new ArrayList<>();
 
     public User() {
         this.accountNonExpired = true;
