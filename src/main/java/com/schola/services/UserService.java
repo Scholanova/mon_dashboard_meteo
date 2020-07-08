@@ -1,19 +1,36 @@
 package com.schola.services;
 
-import com.schola.entities.Location;
-import com.schola.repositories.UserRepository;
+import com.schola.entity.location.Location;
+import com.schola.repository.UserRepository;
+import com.schola.entity.user.User;
+import org.hibernate.Hibernate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public class UserService {
+@Service("userService")
+public class UserService implements UserDetailsService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    public UserService(com.schola.repositories.UserRepository userLocationRepository) {
-        this.userRepository = userLocationRepository;
+    @Autowired
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    public List<Location> getFavoritesLocations(long userId) {
-        return userRepository.getFavoritesLocations(userId);
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("user not found : " + username);
+        }
+        else {
+            return user;
+        }
     }
+
 }

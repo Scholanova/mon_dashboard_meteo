@@ -11,8 +11,8 @@
 
 <table>
     <tr>
-        <th>Location Name</th>
-        <th>Location Content</th>
+        <th>Name</th>
+        <th>Content</th>
     </tr>
     <tr th:each="location : ${locations}">
         <td><span th:text="${location.name}" /></td>
@@ -20,7 +20,7 @@
     </tr>
 </table>
 
-<div th:if="${not #lists.isEmpty(locations)}">
+<div th:if="${#lists.isEmpty(locations)}">
     <p> Your favorite locations list is empty</p>
 </div>
 
