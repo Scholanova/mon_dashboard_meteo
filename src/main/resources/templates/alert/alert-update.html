@@ -1,10 +1,208 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<header th:replace="header/header::header"></header>
 <head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <title>Modification alertes</title>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="../images/icons/favicon.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../css/util.css">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <!--===============================================================================================-->
 </head>
 <body>
-$END$
+
+<h1>Modifier Alerte</h1>
+
+<div class="limiter">
+    <div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+        <div class="wrap-login100">
+            <p th:if="${Error}" class="error">Erreur de Modification de l'alerte</p>
+            <form th:action="@{/alert/update/{id}(id=${alert.id})}" th:object="${alert}" method="post" class="login100-form validate-form">
+					<span class="login100-form-logo">
+						<i class="zmdi zmdi-landscape"></i>
+					</span>
+
+                <span class="login100-form-title p-b-34 p-t-27">
+						Modification Alerte
+					</span>
+
+                <div class="wrap-input100 validate-input" data-validate = "Enter caption">
+                    <input class="input100" type="text" th:field="*{caption}" name="caption" placeholder="Caption" id="caption" required="required" autofocus="autofocus" >
+                    <span th:if="${#fields.hasErrors('caption')}" th:errors="*{caption}"></span>
+                </div>
+
+                <div class="contact100-form-checkbox">
+                    <input class="input-checkbox100"  id="isReccurent" type="checkbox"  name="isReccurent" th:checked="${isReccurent}" autofocus="autofocus">
+                    <label class="label-checkbox100" for="isReccurent">
+                        Est Periodique ?
+                    </label>
+                </div>
+
+                <div th:if="${myBooleanVariable == true}" id="dayslocal">
+                    <div class="contact100-form-checkbox">
+                        <input class="input-checkbox100" id="lundi" type="checkbox"  name="lundi" autofocus="autofocus">
+                        <label class="label-checkbox100" for="lundi">
+                            Lundi
+                        </label>
+                    </div>
+                    <div class="contact100-form-checkbox">
+                        <input class="input-checkbox100" id="Mardi" type="checkbox"  name="Mardi" autofocus="autofocus">
+                        <label class="label-checkbox100" for="Mardi">
+                            Mardi
+                        </label>
+                    </div>
+                    <div class="contact100-form-checkbox">
+                        <input class="input-checkbox100" id="Mercredi" type="checkbox"  name="Mercredi" autofocus="autofocus">
+                        <label class="label-checkbox100" for="Mercredi">
+                            Mercredi
+                        </label>
+                    </div>
+                    <div class="contact100-form-checkbox">
+                        <input class="input-checkbox100" id="Jeudi" type="checkbox"  name="Jeudi" autofocus="autofocus">
+                        <label class="label-checkbox100" for="Jeudi">
+                            Jeudi
+                        </label>
+                    </div>
+                    <div class="contact100-form-checkbox">
+                        <input class="input-checkbox100" id="Vendredi" type="checkbox"  name="Vendredi" autofocus="autofocus">
+                        <label class="label-checkbox100" for="Vendredi">
+                            Vendredi
+                        </label>
+                    </div>
+                    <div class="contact100-form-checkbox">
+                        <input class="input-checkbox100" id="Samedi" type="checkbox"  name="Samedi" autofocus="autofocus">
+                        <label class="label-checkbox100" for="Samedi">
+                            Samedi
+                        </label>
+                    </div>
+                    <div class="contact100-form-checkbox">
+                        <input class="input-checkbox100" id="Dimanche" type="checkbox"  name="Dimanche" autofocus="autofocus">
+                        <label class="label-checkbox100" for="Dimanche">
+                            Dimanche
+                        </label>
+                    </div>
+                </div>
+
+
+
+
+                <!--div class="wrap-input100 validate-input" data-validate = "Enter days">
+                    <input class="input100" type="text" name="days" placeholder="Dayysysysyss" id="days"  autofocus="autofocus" >
+                </div-->
+
+                <div th:if="${myBooleanVariable == false}" id="hourlocal">
+                    <div class="wrap-input100 validate-input" data-validate = "Enter hour">
+                        <input class="input100" type="time" step="1" name="hour" placeholder="Heure" id="hour" autofocus="autofocus" >
+                    </div>
+                </div>
+
+
+                <script>
+
+document.getElementById('isReccurent').onclick = function() {
+    // access properties using this keyword
+    if ( this.checked ) {
+  var x = document.getElementById("datelocal");
+                x.style.display = "block";
+
+                 var y = document.getElementById("hourlocal");
+                y.style.display = "none";
+
+                var z = document.getElementById("dayslocal");
+                z.style.display = "none";
+
+
+    } else {
+    var x = document.getElementById("datelocal");
+                x.style.display = "none";
+
+                 var y = document.getElementById("hourlocal");
+                y.style.display = "block";
+
+                var z = document.getElementById("dayslocal");
+                z.style.display = "block";
+        // if not checked ...
+
+
+    }
+};
+
+                function datelocal() {
+                var x = document.getElementById("datelocal");
+                if (x.style.display === "none") {
+                x.style.display = "block";
+                } else {
+                x.style.display = "none";
+                }
+                }
+
+                  function hourlocal() {
+                var x = document.getElementById("hourlocal");
+                if (x.style.display === "none") {
+                x.style.display = "block";
+                } else {
+                x.style.display = "none";
+                }
+                }
+
+
+                  function dayslocal() {
+                var x = document.getElementById("dayslocal");
+                if (x.style.display === "none") {
+                x.style.display = "block";
+                } else {
+                x.style.display = "none";
+                }
+                }
+
+
+</script>
+
+                <div th:if="${myBooleanVariable == true}" id="datelocal">
+
+                    <div class="wrap-input100 validate-input" data-validate = "Enter date">
+                        <input class="input100" type="datetime-local"  name="date" placeholder="Date" id="date" autofocus="autofocus" >
+                    </div>
+                </div>
+                <div class="wrap-input100 validate-input" data-validate = "Choose location">
+
+                    <select class="input100" name="locationId" id="locationId">
+                        <option value="Paris"> Paris</option>
+                        <option value="villejuif"> Villejuif</option>
+                    </select>
+                </div>
+                <div class="container-login100-form-btn">
+                    <button type="submit" class="login100-form-btn">
+                        Modifier
+                    </button>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
