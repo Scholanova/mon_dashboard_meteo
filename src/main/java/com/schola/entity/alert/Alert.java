@@ -48,4 +48,8 @@ public class Alert  {
         this.userId = idUser;
         this.locationId = locationId;
     }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }
