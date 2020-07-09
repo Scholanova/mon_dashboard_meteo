@@ -24,7 +24,6 @@ public class AlertController {
 
     private AlertService alertService;
     private UserRepository userRepository;
-    private AlertRepository alertRepository;
     private UserLocationService userLocationService;
     private LocationService locationService;
 
@@ -160,23 +159,21 @@ public class AlertController {
 
     @GetMapping("alert/edit/{id}")
     public String showUpdateForm(@PathVariable("id") int id, Model model) {
-        Alert alert = alertRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid alert Id:" + id));
+        Alert alert = alertService.getAlertById(id);
 
         model.addAttribute("alert", alert);
-        return "alert-update";
+        return "alert/alert-update";
     }
-    @PostMapping("alert/update/{id}")
+    @PostMapping("/alert/update/{id}")
     public String updateAlert(@PathVariable("id") int id, Alert alert,
                               BindingResult result, Model model) {
         if (result.hasErrors()) {
             alert.setId(id);
-            return "alert-update";
+            return "alert/alert-update";
         }
-
-        alertRepository.save(alert);
-        model.addAttribute("alerts", alertRepository.findAll());
-        return "index";
+        alertService.saveAlert(alert);
+        model.addAttribute("alert", alertService.listAll());
+        return "/alert/alert-list";
     }
 
 
