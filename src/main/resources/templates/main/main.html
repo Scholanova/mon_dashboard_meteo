@@ -59,12 +59,6 @@
                         <a href="#">Profil Utilisateur</a>
                     </li>
                     <li>
-                        <form th:action="@{../findlocation}" method="get">
-                            <input th:name="name" th:value="${name}" />
-                            <input type="submit" value="Find"/>
-                        </form>
-                    </li>
-                    <li>
                         <a sec:authorize="isAnonymous()" th:href="@{/logout}">Déconnexion</a>
                     </li>
                 </ul>
@@ -197,28 +191,32 @@
 		</script>
 
 
-<h1>Mes lieux d'intérêt</h1>
+<h1>Liste des lieux d'intérêt</h1>
+
+<form th:action="@{../findlocation}" method="get">
+    <span>Ajouter un nouveau lieu d'intérêt : </span>
+    <input th:name="name" th:value="${name}" />
+    <input type="submit" value="lancer une recherche"/>
+</form>
 
 <div th:if="${not #lists.isEmpty(locations)}">
     <table>
         <tr>
             <th>Nom</th>
             <th>Météo</th>
-            <th>Suprimmer</th>
+            <th></th>
         </tr>
         <tr th:each="location : ${locations}">
             <td><span th:text="${location.name}" /></td>
             <td>TODO</td>
-            <td><a th:href="@{'/favorites-locations/delete/' + ${location.getId()}}">Delete</a></td>
+            <td><a th:href="@{'/favorites-locations/delete/' + ${location.getId()}}">Supprimer</a></td>
         </tr>
     </table>
 </div>
 
 <div th:if="${#lists.isEmpty(locations)}">
-    <p> la liste des lieux favoris est vide</p>
+    <h4> la liste est vide</h4>
 </div>
-
-<a href="/locations/new">Ajouter un lieu</a>
 
 
 </body>
