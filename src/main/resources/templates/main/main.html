@@ -60,13 +60,13 @@
     <table>
         <tr>
             <th>Nom</th>
-            <th>Content</th>
-            <th>Delete</th>
+            <th>Météo</th>
+            <th>Suprimmer</th>
         </tr>
         <tr th:each="location : ${locations}">
             <td><span th:text="${location.name}" /></td>
-            <td>empty content</td>
-            <td><a th:href="@{/locations/delete/{id}(id=${location.id})}">Delete</a></td>
+            <td>TODO</td>
+            <td><a th:href="@{'/favorites-locations/delete/' + ${location.getId()}}">Delete</a></td>
         </tr>
     </table>
 </div>

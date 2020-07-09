@@ -111,6 +111,7 @@ public class UserController {
     @GetMapping("/favorites-locations/delete/{id}")
     public String deleteFavoriteLocation(@AuthenticationPrincipal User user, @PathVariable("id") long id) {
 
+        logger.info("id param: " + id);
         userLocationService.removeFavoriteLocation(user.getUsername(), id);
 
         return "redirect:/favorites-locations";
@@ -120,9 +121,11 @@ public class UserController {
     public String addFavoriteLocation(
             @AuthenticationPrincipal User user,
             @RequestParam("cityName") String cityName,
-            @RequestParam("cityInsee") String cityInsee,
-            Model model)
+            @RequestParam("cityInsee") String cityInsee
+    )
     {
+        logger.info("param1 : " + cityName);
+        logger.info("param2 : " + cityInsee);
         userLocationService.addFavoriteLocation(user.getUsername(), cityName, cityInsee);
 
         return "redirect:/favorites-locations";

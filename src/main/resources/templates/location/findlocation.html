@@ -63,7 +63,16 @@
         <td><span th:text="${LocationResponse.getNom()}" /></td>
         <td><span th:text="${LocationResponse.getFirstCodePostal()}" /></td>
         <td><a th:href="@{'../weatherlocation/' + ${LocationResponse.getCode()}}"><button>Weather here !</button></a></td>
-        <td><button>+</button></td>
+        <td>
+            <form th:action="@{/favorites-locations/add}" method="post">
+                <input type="hidden" name="cityName" id="cityName" th:value="${LocationResponse.getNom()}" />
+                <input type="hidden" name="cityInsee" id="cityInsee" th:value="${LocationResponse.getCode()}" />
+                <input type="submit" value="Ajouter" />
+            </form>
+<!--            <a th:href="@{'../favorites-locations/add?cityName=' + ${LocationResponse.getNom()} + '&cityInsee=' +${LocationResponse.getCode()}}">-->
+<!--                <button>Add</button>-->
+<!--            </a>-->
+        </td>
     </tr>
 
 </table>
