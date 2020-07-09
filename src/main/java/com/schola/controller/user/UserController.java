@@ -2,6 +2,7 @@ package com.schola.controller.user;
 
 
 import com.schola.entity.location.Location;
+import com.schola.repository.LocationRepository;
 import com.schola.repository.UserRepository;
 import com.schola.entity.user.Role;
 import com.schola.entity.user.User;
@@ -16,6 +17,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -35,6 +38,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private LocationRepository locationRepository;
 
 
     @GetMapping("/login")
@@ -90,5 +96,36 @@ public class UserController {
         }
     }
 
+    @GetMapping("/favorites-locations")
+    public ModelAndView listLocationsByUserId(@AuthenticationPrincipal User user, Model model) {
+
+        if(user == null)
+            return new ModelAndView("redirect:" + "/");
+
+        List<Location> locations = userLocationService.getUserLocations(user.getUsername());
+        model.addAttribute("locations", locations);
+
+        return new ModelAndView("main/main") ;
+    }
+
+    @GetMapping("/favorites-locations/delete/{id}")
+    public String deleteFavoriteLocation(@AuthenticationPrincipal User user, @PathVariable("id") long id) {
+
+        userLocationService.removeFavoriteLocation(user.getUsername(), id);
+
+        return "redirect:/favorites-locations";
+    }
+
+    @PostMapping("/favorites-locations/add")
+    public String addFavoriteLocation(
+            @AuthenticationPrincipal User user,
+            @RequestParam("cityName") String cityName,
+            @RequestParam("cityInsee") String cityInsee,
+            Model model)
+    {
+        userLocationService.addFavoriteLocation(user.getUsername(), cityName, cityInsee);
+
+        return "redirect:/favorites-locations";
+    }
 
 }
