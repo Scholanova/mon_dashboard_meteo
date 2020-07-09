@@ -111,4 +111,14 @@ public class User implements UserDetails {
             this.password = BCryptManagerUtil.passwordencoder().encode(password);
         }
     }
+
+    public void addLocation(Location location) {
+        this.favoritesLocations.add(location);
+        location.getUsers().add(this);
+    }
+
+    public void removeLocation(Location location) {
+        this.favoritesLocations.remove(location);
+        location.getUsers().remove(this);
+    }
 }
