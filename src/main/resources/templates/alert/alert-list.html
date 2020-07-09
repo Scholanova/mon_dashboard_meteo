@@ -75,7 +75,7 @@ twitter.com/realvjy
             <div class="desc top" th:each="dayslist : ${alert.dayslist}">
                 <p th:text="${dayslist}"></p>
             </div>
-            <button class="btn color-a top"> Modifier</button>
+            <button class="btn color-a top"><a th:href="@{/alert/edit/{id}(id=${alert.id})}">Modifier</a> </button>
 
             <hr>
             <div class="container">
