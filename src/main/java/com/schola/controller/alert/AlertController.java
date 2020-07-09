@@ -26,8 +26,8 @@ public class AlertController {
     private UserRepository userRepository;
     private UserLocationService userLocationService;
     private LocationService locationService;
-    @Autowired
-    private EmailService emailService;
+    //@Autowired
+    //private EmailService emailService;
 
 
     public AlertController(AlertService alertService, UserRepository userRepository, EmailService emailService,UserLocationService userLocationService, LocationService locationService) {
@@ -41,7 +41,7 @@ public class AlertController {
     @GetMapping("/alert")
     public String listAlert(Model model) {
 
-        emailService.sendEmail("magenelec@gmail.com","Email Testing Subject2", "Email Testing Body2");
+        //emailService.sendEmail("magenelec@gmail.com","Email Testing Subject2", "Email Testing Body2");
 
         List<Alert> alerts = alertService.listAll();
 

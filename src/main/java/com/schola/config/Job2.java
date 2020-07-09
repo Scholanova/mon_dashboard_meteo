@@ -23,5 +23,5 @@ public class Job2 implements Job {
     public void execute(JobExecutionContext context) throws JobExecutionException {
         System.out.println("Job2 --->>> Time is " + new Date());
 
-        EmailService.sendEmail("magenelec@gmail.com", "test", "test");
+        //EmailService.sendEmail("magenelec@gmail.com", "test", "test");
     }}
