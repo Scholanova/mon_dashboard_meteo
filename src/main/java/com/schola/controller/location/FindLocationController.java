@@ -1,6 +1,7 @@
 package com.schola.controller.location;
 
 import com.schola.entity.location.LocationResponse;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.schola.entity.weather.ConceptMeteoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,13 @@ public class FindLocationController {
         LocationResponse[] response = restemplate.getForObject("https://geo.api.gouv.fr/communes?nom="+name, LocationResponse[].class);
         return response[0].getNom() + "  Insee = " + response[0].getCode();
     }*/
+
+    @GetMapping("/findlocation")
+    public ModelAndView FindLocationByKeyName (@RequestParam(value = "name") String name, Model model) {
+        LocationResponse[] response = restemplate.getForObject("https://geo.api.gouv.fr/communes?nom="+name, LocationResponse[].class);
+        model.addAttribute("response", response);
+        return new ModelAndView("location/findlocation");
+    }
 
     @GetMapping("/findlocation/{name}")
     public ModelAndView FindLocationByName (@PathVariable String name, Model model) {
