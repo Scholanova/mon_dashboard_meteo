@@ -32,12 +32,6 @@
                         <a href="#">Profil Utilisateur</a>
                     </li>
                     <li>
-                        <form th:action="@{../findlocation}" method="get">
-                            <input th:name="name" th:value="${name}" />
-                            <input type="submit" value="Find"/>
-                        </form>
-                    </li>
-                    <li>
                         <a sec:authorize="isAnonymous()" th:href="@{/logout}">Déconnexion</a>
                     </li>
                 </ul>
@@ -50,14 +44,13 @@
 			var menu = new cbpHorizontalSlideOutMenu( document.getElementById( 'cbp-hsmenu-wrapper' ) );
 </script>
 
-<h1 th:text="${response.getCity().getName()}"/>
-<p th:text="${response.getCity().getCp()}"/>
+<h1 th:text="${response.getCity().getName()} + ' (' + ${response.getCity().getCp()} +')'"/>
 
 <h3 th:text="${response.getForecast().getDatetime()}"/>
 
 
 <div>
-    <h2> Weather Informations</h2>
+    <h2>Informations météorologique</h2>
     <table>
         <tr>
             <td>Weather</td>
@@ -65,32 +58,32 @@
             <td><p th:text="${response.getForecast().getWeatherType()}"/></td>
         </tr>
         <tr>
-            <td>Minimun temperature</td>
+            <td>Temperature Minimal</td>
             <td><p th:text="${response.getForecast().getTmin()}"/></td>
             <td>°</td>
         </tr>
         <tr>
-            <td>Maximum temperature</td>
+            <td>Temperature Maximal</td>
             <td><p th:text="${response.getForecast().getTmax()}"/></td>
             <td>°</td>
         </tr>
         <tr>
-            <td>Sun hours</td>
+            <td>Heures d'ensoleillement</td>
             <td><p th:text="${response.getForecast().getSun_hours()}"/></td>
             <td>H</td>
         </tr>
         <tr>
-            <td>Risk of rain</td>
+            <td>Risque de pluie</td>
             <td><p th:text="${response.getForecast().getProbarain()}"/></td>
             <td>%</td>
         </tr>
         <tr>
-            <td>Risk of frost</td>
+            <td>Risque de gel</td>
             <td><p th:text="${response.getForecast().getProbafrost()}"/></td>
             <td>%</td>
         </tr>
         <tr>
-            <td>Risk of fog</td>
+            <td>Risque de brouillard</td>
             <td><p th:text="${response.getForecast().getProbafog()}"/></td>
             <td>%</td>
         </tr>
