@@ -8,6 +8,7 @@ import com.schola.services.LocationService;
 import com.schola.services.UserLocationService;
 import com.schola.services.alert.AlertService;
 import com.schola.shared.utils.EmailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,7 @@ public class AlertController {
     private UserRepository userRepository;
     private UserLocationService userLocationService;
     private LocationService locationService;
+    @Autowired
     private EmailService emailService;
 
 
@@ -33,7 +35,7 @@ public class AlertController {
         this.userRepository = userRepository;
         this.userLocationService = userLocationService;
         this.locationService = locationService;
-        this.emailService = emailService;
+        //this.emailService = emailService;
     }
 
     @GetMapping("/alert")

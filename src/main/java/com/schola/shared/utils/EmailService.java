@@ -7,10 +7,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 
-@Service("emailService")
+@Service
 public class EmailService {
 
-    private JavaMailSender javaMailSender;
+    private static JavaMailSender javaMailSender;
 
     public EmailService(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
@@ -18,7 +18,7 @@ public class EmailService {
 
 
 
-    public void sendEmail(String toEmail, String subject, String body){
+    public static void sendEmail(String toEmail, String subject, String body){
 
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo(toEmail);
