@@ -52,13 +52,13 @@
 <div>
     <h2>Informations météorologique</h2>
     <table>
-    <span>Weather <p th:text="${response.getForecast().getWeather()}"/></span>
-    <span>Temperature Minimal <p th:text="${response.getForecast().getTmin()} + '°'"/></span>
-        <span>Temperature Maximal <p th:text="${response.getForecast().getTmax()} + '°'"/></span>
-    <span>Heures d'ensoleillement <p th:text="${response.getForecast().getSun_hours()} + 'H'"/></span>
-    <span>Risque de pluie <p th:text="${response.getForecast().getProbarain()}+ '%'"/></span>
-    <span>Rique de froid <p th:text="${response.getForecast().getProbafrost()}+ '%'"/></span>
-    <span>Risque de brouillard<p th:text="${response.getForecast().getProbafog()}+ '%'"/></span>
+      <span>Weather <p th:text="${response.getForecast().getWeather()}"/></span>
+      <span>Temperature Minimal <p th:text="${response.getForecast().getTmin()} + '°'"/></span>
+      <span>Temperature Maximal <p th:text="${response.getForecast().getTmax()} + '°'"/></span>
+      <span>Heures d'ensoleillement <p th:text="${response.getForecast().getSun_hours()} + 'H'"/></span>
+      <span>Risque de pluie <p th:text="${response.getForecast().getProbarain()}+ '%'"/></span>
+      <span>Rique de froid <p th:text="${response.getForecast().getProbafrost()}+ '%'"/></span>
+      <span>Risque de brouillard<p th:text="${response.getForecast().getProbafog()}+ '%'"/></span>
     </table>
 </div>
 
