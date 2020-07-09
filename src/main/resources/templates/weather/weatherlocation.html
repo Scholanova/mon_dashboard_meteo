@@ -1,12 +1,54 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<header th:replace="header/header::header"></header>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>My Weather Dashboard</title>
+    <title th:text="${response.getCity().getName()}"></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Blueprint: Horizontal Slide Out Menu" />
+    <meta name="keywords" content="horizontal, slide out, menu, navigation, responsive, javascript, images, grid" />
+    <meta name="author" content="Codrops" />
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../menu/css/default.css" />
+    <link rel="stylesheet" type="text/css" href="../menu/css/component.css" />
+    <script src="../menu/js/modernizr.custom.js"></script>
 </head>
 <body>
+<div class="container">
+    <header class="clearfix">
+        <span>ScholaNova <span class="bp-icon bp-icon-about" data-content="The Blueprints are a collection of basic and minimal website concepts, components, plugins and layouts with minimal style for easy adaption and usage, or simply for inspiration."></span></span>
+        <h1>Weather Dashboard</h1>
+    </header>
+    <div class="main">
+        <nav class="cbp-hsmenu-wrapper" id="cbp-hsmenu-wrapper">
+            <div class="cbp-hsinner">
+                <ul class="cbp-hsmenu">
+                    <li>
+                        <a href="../main">Acceuil</a>
+                    </li>
+                    <li>
+                        <a href="../alert">Alertes</a>
+                    </li>
+                    <li>
+                        <a href="#">Profil Utilisateur</a>
+                    </li>
+                    <li>
+                        <form th:action="@{../findlocation}" method="get">
+                            <input th:name="name" th:value="${name}" />
+                            <input type="submit" value="Find"/>
+                        </form>
+                    </li>
+                    <li>
+                        <a sec:authorize="isAnonymous()" th:href="@{/logout}">Déconnexion</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+<script src="js/cbpHorizontalSlideOutMenu.min.js"></script>
+<script>
+			var menu = new cbpHorizontalSlideOutMenu( document.getElementById( 'cbp-hsmenu-wrapper' ) );
+</script>
 
 <h1 th:text="${response.getCity().getName()}"/>
 <p th:text="${response.getCity().getCp()}"/>
@@ -16,13 +58,15 @@
 
 <div>
     <h2> Weather Informations</h2>
+    <table>
     <span>Weather <p th:text="${response.getForecast().getWeather()}"/></span>
-    <span>Minimun temperature <p th:text="${response.getForecast().getTmin()}"/></span>
-    <span>Maximum temperature <p th:text="${response.getForecast().getTmax()}"/></span>
-    <span>Sun hours <p th:text="${response.getForecast().getSun_hours()}"/></span>
-    <span>Risk of rain <p th:text="${response.getForecast().getProbarain()}"/></span>
-    <span>Risk of frost <p th:text="${response.getForecast().getProbafrost()}"/></span>
-    <span>Risk of fog <p th:text="${response.getForecast().getProbafog()}"/></span>
+    <span>Minimun temperature <p th:text="${response.getForecast().getTmin()}"/>°</span>
+    <span>Maximum temperature <p th:text="${response.getForecast().getTmax()}"/>°</span>
+    <span>Sun hours <p th:text="${response.getForecast().getSun_hours()}"/>H</span>
+    <span>Risk of rain <p th:text="${response.getForecast().getProbarain()}"/>%</span>
+    <span>Risk of frost <p th:text="${response.getForecast().getProbafrost()}"/>%</span>
+    <span>Risk of fog <p th:text="${response.getForecast().getProbafog()}"/>%</span>
+    </table>
 </div>
 
 </body>
