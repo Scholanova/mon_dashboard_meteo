@@ -144,7 +144,6 @@ hr{
   width:280px;
 }
 .container {
-	width: 960px;
 	margin: 0 auto;
 	padding: 0px;
 	position: relative;
@@ -295,6 +294,7 @@ box-shadow: 10px 10px 44px 15px rgba(0,0,0,0.14);
     transform:  translate(0px,0px)  ;
   }
 }
+
 
 @-webkit-keyframes animationFrames {
   0% {

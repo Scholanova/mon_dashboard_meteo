@@ -52,60 +52,64 @@ twitter.com/realvjy
             </div>
         </nav>
     </div>
+
+    <button class="btn color-a top" ><a href="alert/new">Ajouter</a> </button>
+
+    <div class="container" style="align-items : center">
+        <div class="grid-7 element-animation" style="display: inline-flex;
+    width: auto;"
+ >
+            <!--card-1-->
+            <div class="card color-card" th:each="alert : ${alerts}" style="height: auto;">
+
+                <ul>
+                    <li><i class="fas fa-ellipsis-v i-r w"></i></li>
+                    <li><i class="far fa-delete i-r w"></i></li>
+                </ul>
+                <h1 class="title" th:text="${alert.caption}"></h1>
+                <p class="job-title" th:text="${alert.hour}" > </p>
+                <p class="job-title" th:text="${alert.date}" > </p>
+                <div class="desc top" th:each="dayslist : ${alert.dayslist}">
+                    <p th:text="${dayslist}"></p>
+                </div>
+                <button class="btn color-a top"> Modifier</button>
+
+                <hr>
+                <div class="container">
+                    <div class="content">
+                        <div class="grid-2">
+                            <h2 class="title">*</h2>
+                        </div>
+                        <div class="grid-2">
+                            <button class="color-c circule">Ville</button>
+                            <h2 class="title" th:text="${alert.locationName}"></h2>
+                        </div>
+                        <div class="grid-2">
+                            <h2 class="title">*</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400" rel="stylesheet">
+
+
+    <div th:if="${#lists.isEmpty(alerts)}">
+        <p> La liste des alertes est vide</p>
+    </div>
 </div>
 <script src="js/cbpHorizontalSlideOutMenu.min.js"></script>
 <script>
 			var menu = new cbpHorizontalSlideOutMenu( document.getElementById( 'cbp-hsmenu-wrapper' ) );
 		</script>
 
-<button class="btn color-a top" ><a href="alert/new">Ajouter</a> </button>
-
-<div class="container">
-    <div class="grid-7 element-animation">
-        <!--card-1-->
-        <div class="card color-card" th:each="alert : ${alerts}" style="height: auto;">
-
-            <ul>
-                <li><i class="fas fa-ellipsis-v i-r w"></i></li>
-                <li><i class="far fa-delete i-r w"></i></li>
-            </ul>
-            <h1 class="title" th:text="${alert.caption}"></h1>
-            <p class="job-title" th:text="${alert.hour}" > </p>
-            <p class="job-title" th:text="${alert.date}" > </p>
-            <div class="desc top" th:each="dayslist : ${alert.dayslist}">
-                <p th:text="${dayslist}"></p>
-            </div>
-            <button class="btn color-a top"> Modifier</button>
-
-            <hr>
-            <div class="container">
-                <div class="content">
-                    <div class="grid-2">
-                        <h2 class="title">*</h2>
-                    </div>
-                    <div class="grid-2">
-                        <button class="color-c circule">Ville</button>
-                        <h2 class="title" th:text="${alert.locationName}"></h2>
-                    </div>
-                    <div class="grid-2">
-                        <h2 class="title">*</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-</div>
-
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400" rel="stylesheet">
-
-
-<div th:if="${#lists.isEmpty(alerts)}">
-    <p> La liste des alertes est vide</p>
-</div>
 
 </body>
 </html>
