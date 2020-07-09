@@ -12,13 +12,15 @@
 <table>
     <tr>
         <th>Name</th>
-        <th>Insee</th>
+        <th>Postal code</th>
         <th>Weather</th>
+        <th>Add Favoris</th>
     </tr>
     <tr th:each="LocationResponse : ${response}">
         <td><span th:text="${LocationResponse.getNom()}" /></td>
-        <td><span th:text="${LocationResponse.getCode()}" /></td>
+        <td><span th:text="${LocationResponse.getFirstCodePostal()}" /></td>
         <td><a th:href="@{'../weatherlocation/' + ${LocationResponse.getCode()}}"><button>Weather here !</button></a></td>
+        <td><button>+</button></td>
     </tr>
 
 </table>
