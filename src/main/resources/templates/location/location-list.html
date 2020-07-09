@@ -1,28 +1,28 @@
-<!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
-    <title>Favorite Locations List</title>
-</head>
-<body>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en"-->
+<!--      xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>-->
+<!--    <title>Favorite Locations List</title>-->
+<!--</head>-->
+<!--<body>-->
 
-<h1>Favorite Locations List</h1>
+<!--<h1>Favorite Locations List</h1>-->
 
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Content</th>
-    </tr>
-    <tr th:each="location : ${locations}">
-        <td><span th:text="${location.name}" /></td>
-        <td>empty content</td>
-    </tr>
-</table>
+<!--<table>-->
+<!--    <tr>-->
+<!--        <th>Name</th>-->
+<!--        <th>Content</th>-->
+<!--    </tr>-->
+<!--    <tr th:each="location : ${locations}">-->
+<!--        <td><span th:text="${location.name}" /></td>-->
+<!--        <td>empty content</td>-->
+<!--    </tr>-->
+<!--</table>-->
 
-<div th:if="${#lists.isEmpty(locations)}">
-    <p> Your favorite locations list is empty</p>
-</div>
+<!--<div th:if="${#lists.isEmpty(locations)}">-->
+<!--    <p> Your favorite locations list is empty</p>-->
+<!--</div>-->
 
-</body>
-</html>
+<!--</body>-->
+<!--</html>-->
