@@ -1,15 +1,24 @@
 package com.schola.shared.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
 
-public class EmailUtil {
 
-    @Autowired
-    private static JavaMailSender javaMailSender;
+@Service("emailService")
+public class EmailService {
 
-    public static void sendEmail(String toEmail, String subject, String body){
+    private JavaMailSender javaMailSender;
+
+    public EmailService(JavaMailSender javaMailSender) {
+        this.javaMailSender = javaMailSender;
+    }
+
+
+
+    public void sendEmail(String toEmail, String subject, String body){
 
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo(toEmail);

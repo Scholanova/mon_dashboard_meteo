@@ -7,6 +7,7 @@ import com.schola.entity.alert.Alert;
 import com.schola.services.LocationService;
 import com.schola.services.UserLocationService;
 import com.schola.services.alert.AlertService;
+import com.schola.shared.utils.EmailService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -24,17 +25,22 @@ public class AlertController {
     private UserRepository userRepository;
     private UserLocationService userLocationService;
     private LocationService locationService;
+    private EmailService emailService;
 
 
-    public AlertController(AlertService alertService, UserRepository userRepository, UserLocationService userLocationService, LocationService locationService) {
+    public AlertController(AlertService alertService, UserRepository userRepository, EmailService emailService,UserLocationService userLocationService, LocationService locationService) {
         this.alertService = alertService;
         this.userRepository = userRepository;
         this.userLocationService = userLocationService;
         this.locationService = locationService;
+        this.emailService = emailService;
     }
 
     @GetMapping("/alert")
     public String listAlert(Model model) {
+
+        emailService.sendEmail("magenelec@gmail.com","Email Testing Subject2", "Email Testing Body2");
+
         List<Alert> alerts = alertService.listAll();
 
         alerts.forEach(alert -> {
