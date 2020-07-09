@@ -98,7 +98,7 @@ public class ForecastResponse{
 
     public String getWeatherType(){
         if (getWeather() == 0)
-            return "SUN";
+            return "Soleil";
         if (getWeather() == 1)
             return "Peu nuageux";
         if (getWeather() == 2)
@@ -111,92 +111,162 @@ public class ForecastResponse{
             return "Couvert";
         if (getWeather() == 6)
             return "Brouillard";
-        if (getWeather() == 7)
-            return "Brouillard givrant";
+        if (getWeather() == 10)
+            return "Pluie faible";
+        if (getWeather() == 11)
+            return "Pluie modérée";
+        if (getWeather() == 12)
+            return "Pluie forte";
+        if (getWeather() == 13)
+            return "Pluie faible verglaçante";
+        if (getWeather() == 14)
+            return "Pluie modérée verglaçante";
+        if (getWeather() == 15)
+            return "Pluie forte verglaçante";
+        if (getWeather() == 20)
+            return "Neige faible";
+        if (getWeather() == 21)
+            return "Neige modérée";
+        if (getWeather() == 30)
+            return "Pluie et neige mêlées faibles";
+        if (getWeather() == 31)
+            return "Pluie et neige mêlées modérées";
+        if (getWeather() == 32)
+            return "Pluie et neige mêlées fortes";
+        if (getWeather() == 40)
+            return "Averses de pluie locales et faibles";
+        if (getWeather() == 41)
+            return "Averses de pluie locales";
+        if (getWeather() == 42)
+            return "Averses locales et fortes";
+        if (getWeather() == 43)
+            return "Averses de pluie faibles";
+        if (getWeather() == 44)
+            return "Averses de pluie";
+        if (getWeather() == 45)
+            return "Averses de pluie fortes";
+        if (getWeather() == 46)
+            return "Averses de pluie faibles et fréquentes";
+        if (getWeather() == 47)
+            return "Averses de pluie fréquentes";
+        if (getWeather() == 48)
+            return "Averses de pluie fortes et fréquentes";
+        if (getWeather() == 60)
+            return "Averses de neige localisées et faibles";
+        if (getWeather() == 61)
+            return "Averses de neige localisées";
+        if (getWeather() == 62)
+            return "Averses de neige localisées et fortes";
+        if (getWeather() == 63)
+            return "Averses de neige faibles";
+        if (getWeather() == 64)
+            return "Averses de neige";
+        if (getWeather() == 65)
+            return "Averses de neige fortes";
+        if (getWeather() == 66)
+            return "Averses de neige faibles et fréquentes";
+        if (getWeather() == 67)
+            return "Averses de neige fréquentes";
+        if (getWeather() == 68)
+            return "Averses de neige fortes et fréquentes";
+        if (getWeather() == 70)
+            return "Averses de pluie et neige mêlées localisées et faibles";
+        if (getWeather() == 71)
+            return "Averses de pluie et neige mêlées localisées";
+        if (getWeather() == 72)
+            return "Averses de pluie et neige mêlées localisées et fortes";
+        if (getWeather() == 73)
+            return "Averses de pluie et neige mêlées faibles";
+        if (getWeather() == 74)
+            return "Averses de pluie et neige mêlées";
+        if (getWeather() == 75)
+            return "Averses de pluie et neige mêlées fortes";
+        if (getWeather() == 76)
+            return "Averses de pluie et neige mêlées faibles et nombreuses";
+        if (getWeather() == 77)
+            return "Averses de pluie et neige mêlées fréquentes";
+        if (getWeather() == 78)
+            return "Averses de pluie et neige mêlées fortes et fréquentes";
+        if (getWeather() == 100)
+            return "Orages faibles et locaux";
+        if (getWeather() == 101)
+            return "Orages locaux";
+        if (getWeather() == 102)
+            return "Orages fort et locaux";
+        if (getWeather() == 103)
+            return "Orages faibles";
+        if (getWeather() == 104)
+            return "Orages";
+        if (getWeather() == 105)
+            return "Orages forts";
+        if (getWeather() == 106)
+            return "Orages faibles et fréquents";
+        if (getWeather() == 107)
+            return "Orages fréquents";
+        if (getWeather() == 108)
+            return "Orages forts et fréquents";
+        if (getWeather() == 120)
+            return "Orages faibles et locaux de neige ou grésil";
+        if (getWeather() == 121)
+            return "Orages locaux de neige ou grésil";
+        if (getWeather() == 122)
+            return "Orages locaux de neige ou grésil";
+        if (getWeather() == 123)
+            return "Orages faibles de neige ou grésil";
+        if (getWeather() == 124)
+            return "Orages de neige ou grésil";
+        if (getWeather() == 125)
+            return "Orages de neige ou grésil";
+        if (getWeather() == 126)
+            return "Orages faibles et fréquents de neige ou grésil";
+        if (getWeather() == 127)
+            return "Orages fréquents de neige ou grésil";
+        if (getWeather() == 128)
+            return "Orages fréquents de neige ou grésil";
+        if (getWeather() == 130)
+            return "Orages faibles et locaux de pluie et neige mêlées ou grésil";
+        if (getWeather() == 131)
+            return "Orages locaux de pluie et neige mêlées ou grésil";
+        if (getWeather() == 132)
+            return "Orages fort et locaux de pluie et neige mêlées ou grésil";
+        if (getWeather() == 133)
+            return "Orages faibles de pluie et neige mêlées ou grésil";
+        if (getWeather() == 134)
+            return "Orages de pluie et neige mêlées ou grésil";
+        if (getWeather() == 135)
+            return "Orages forts de pluie et neige mêlées ou grésil";
+        if (getWeather() == 136)
+            return "Orages faibles et fréquents de pluie et neige mêlées ou grésil";
+        if (getWeather() == 137)
+            return "Orages fréquents de pluie et neige mêlées ou grésil";
+        if (getWeather() == 138)
+            return "Orages forts et fréquents de pluie et neige mêlées ou grésil";
+        if (getWeather() == 140)
+            return "Pluies orageuses";
+        if (getWeather() == 141)
+            return "Pluie et neige mêlées à caractère orageux";
+        if (getWeather() == 142)
+            return "Neige à caractère orageux";
+        if (getWeather() == 210)
+            return "Pluie faible intermittente";
+        if (getWeather() == 211)
+            return "Pluie modérée intermittente";
+        if (getWeather() == 212)
+            return "Pluie forte intermittente";
+        if (getWeather() == 220)
+            return "Neige faible intermittente";
+        if (getWeather() == 221)
+            return "Neige modérée intermittente";
+        if (getWeather() == 222)
+            return "Neige forte intermittente";
+        if (getWeather() == 230)
+            return "Pluie et neige mêlées";
+        if (getWeather() == 231)
+            return "Pluie et neige mêlées";
+        if (getWeather() == 232)
+            return "Pluie et neige mêlées";
+        if (getWeather() == 235)
+            return "Averses de grêle";
         return String.valueOf(getWeather());
     }
-
-            /*
-            10 => "Pluie faible",
-            11 => "Pluie modérée",
-            12 => "Pluie forte",
-            13 => "Pluie faible verglaçante",
-            14 => "Pluie modérée verglaçante",
-            15 => "Pluie forte verglaçante",
-            16 => "Bruine",
-            20 => "Neige faible",
-            21 => "Neige modérée",
-            22 => "Neige forte",
-            30 => "Pluie et neige mêlées faibles",
-            31 => "Pluie et neige mêlées modérées",
-            32 => "Pluie et neige mêlées fortes",
-            40 => "Averses de pluie locales et faibles",
-            41 => "Averses de pluie locales",
-            42 => "Averses locales et fortes",
-            43 => "Averses de pluie faibles",
-            44 => "Averses de pluie",
-            45 => "Averses de pluie fortes",
-            46 => "Averses de pluie faibles et fréquentes",
-            47 => "Averses de pluie fréquentes",
-            48 => "Averses de pluie fortes et fréquentes",
-            60 => "Averses de neige localisées et faibles",
-            61 => "Averses de neige localisées",
-            62 => "Averses de neige localisées et fortes",
-            63 => "Averses de neige faibles",
-            64 => "Averses de neige",
-            65 => "Averses de neige fortes",
-            66 => "Averses de neige faibles et fréquentes",
-            67 => "Averses de neige fréquentes",
-            68 => "Averses de neige fortes et fréquentes",
-            70 => "Averses de pluie et neige mêlées localisées et faibles",
-            71 => "Averses de pluie et neige mêlées localisées",
-            72 => "Averses de pluie et neige mêlées localisées et fortes",
-            73 => "Averses de pluie et neige mêlées faibles",
-            74 => "Averses de pluie et neige mêlées",
-            75 => "Averses de pluie et neige mêlées fortes",
-            76 => "Averses de pluie et neige mêlées faibles et nombreuses",
-            77 => "Averses de pluie et neige mêlées fréquentes",
-            78 => "Averses de pluie et neige mêlées fortes et fréquentes",
-            100 => "Orages faibles et locaux",
-            101 => "Orages locaux",
-            102 => "Orages fort et locaux",
-            103 => "Orages faibles",
-            104 => "Orages",
-            105 => "Orages forts",
-            106 => "Orages faibles et fréquents",
-            107 => "Orages fréquents",
-            108 => "Orages forts et fréquents",
-            120 => "Orages faibles et locaux de neige ou grésil",
-            121 => "Orages locaux de neige ou grésil",
-            122 => "Orages locaux de neige ou grésil",
-            123 => "Orages faibles de neige ou grésil",
-            124 => "Orages de neige ou grésil",
-            125 => "Orages de neige ou grésil",
-            126 => "Orages faibles et fréquents de neige ou grésil",
-            127 => "Orages fréquents de neige ou grésil",
-            128 => "Orages fréquents de neige ou grésil",
-            130 => "Orages faibles et locaux de pluie et neige mêlées ou grésil",
-            131 => "Orages locaux de pluie et neige mêlées ou grésil",
-            132 => "Orages fort et locaux de pluie et neige mêlées ou grésil",
-            133 => "Orages faibles de pluie et neige mêlées ou grésil",
-            134 => "Orages de pluie et neige mêlées ou grésil",
-            135 => "Orages forts de pluie et neige mêlées ou grésil",
-            136 => "Orages faibles et fréquents de pluie et neige mêlées ou grésil",
-            137 => "Orages fréquents de pluie et neige mêlées ou grésil",
-            138 => "Orages forts et fréquents de pluie et neige mêlées ou grésil",
-            140 => "Pluies orageuses",
-            141 => "Pluie et neige mêlées à caractère orageux",
-            142 => "Neige à caractère orageux",
-            210 => "Pluie faible intermittente",
-            211 => "Pluie modérée intermittente",
-            212 => "Pluie forte intermittente",
-            220 => "Neige faible intermittente",
-            221 => "Neige modérée intermittente",
-            222 => "Neige forte intermittente",
-            230 => "Pluie et neige mêlées",
-            231 => "Pluie et neige mêlées",
-            232 => "Pluie et neige mêlées",
-            235 => "Averses de grêle",
-            */
-
 }
