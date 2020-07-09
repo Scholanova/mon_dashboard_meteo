@@ -49,6 +49,10 @@ public class LocationResponse {
         return codesPostaux;
     }
 
+    public String getFirstCodePostal() {
+        return codesPostaux.get(0);
+    }
+
     public void setCodesPostaux(List<String> codesPostaux) {
         this.codesPostaux = codesPostaux;
     }

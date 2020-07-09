@@ -34,7 +34,14 @@
                     <li>
                         <a href="#">Profil Utilisateur</a>
                     </li>
-                    <li>                    <a sec:authorize="isAnonymous()" th:href="@{/logout}">Déconnexion</a>
+                    <li>
+                        <form th:action="@{../findlocation}" method="get">
+                            <input th:name="name" th:value="${name}" />
+                            <input type="submit" value="Find"/>
+                        </form>
+                    </li>
+                    <li>
+                        <a sec:authorize="isAnonymous()" th:href="@{/logout}">Déconnexion</a>
                     </li>
                 </ul>
             </div>
