@@ -1,7 +1,6 @@
 package com.schola.entity.weather;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.sun.javafx.sg.prism.EffectFilter;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class ForecastResponse{
