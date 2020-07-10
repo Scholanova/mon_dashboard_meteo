@@ -43,9 +43,9 @@ public class AlertController {
 
         //emailService.sendEmail("magenelec@gmail.com","Email Testing Subject2", "Email Testing Body2");
 
-        List<Alert> alerts = alertService.listAll();
+        List<Alert> alerts = new ArrayList<>();
 
-        EmailService.sendEmail("magenelec@gmail.com","fdfd","test");
+                alerts = alertService.listAll();
 
         alerts.forEach(alert -> {
             alert.setLocationName(locationService.findById(alert.getLocationId()).get().getName());
