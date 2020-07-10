@@ -173,6 +173,8 @@ public class EmailService {
                     List<LocationVM> locationVMS = new ArrayList<>();
                     for (int i = 0; i < locations.size(); i++) {
                         ConceptMeteoResponse conceptMeteoResponse;
+                        System.out.println("update"+ locations.get(i).getName());
+                        System.out.println("post"+alert.getLocationName());
                         if (locations.get(i).getName().equals(alert.getLocationName()) == true) {
                             responseMeteo = restemplate.getForObject("https://api.meteo-concept.com/api/forecast/daily/" + DAYSEARCH + "?token=" + TOKEN + "&insee=" + locations.get(i).getInsee(), ConceptMeteoResponse.class);
                             EmailService.sendEmail("magenelec@gmail.com", alert.getCaption(), " Bonjour , Vous trouverez tous les informations du météo de votre ville " + alert.getLocationName()
