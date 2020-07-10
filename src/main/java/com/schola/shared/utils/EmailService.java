@@ -71,11 +71,11 @@ public class EmailService {
 
     }
 
-    public List<Alert> getAlertes() {
+    public  List<Alert> getAlertes() {
 
 
         List<Alert> alerts = new ArrayList<>();
-        alerts = this.alertService.listAll();
+        alerts = alertService.listAll();
 
         alerts.forEach(alert -> {
             alert.setLocationName(locationService.findById(alert.getLocationId()).get().getName());
@@ -152,16 +152,15 @@ public class EmailService {
 
 
     @Scheduled(fixedRate = 20)
-    public void cheekAlertes() throws JobExecutionException {
-
+    public void cheekAlertes() {
 
         List<Alert> alertes = new ArrayList<>();
 
-        alertes = alertService.listAll();
+        alertes = getAlertes();
+
 
         alertes.forEach(alert -> {
 
-            alert.setLocationName(locationService.findById(alert.getLocationId()).get().getName());
 
             if (alert.getIsReccurent() == null) {
 
@@ -266,6 +265,7 @@ public class EmailService {
                     case 4:
                         alert.getDayslist().forEach(s -> {
                             if (s.equals("Mercredi") == true) {
+                                System.out.println(convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())));
                                 if (convertToLocalDateTimeViaInstantReccurent(cal.getTime()).concat("T".concat(alert.getHour())).equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString())) {
                                     ConceptMeteoResponse responseMeteo;
                                     List<Location> locations = new ArrayList<>();
@@ -291,6 +291,7 @@ public class EmailService {
                     case 5:
                         alert.getDayslist().forEach(s -> {
                             if (s.equals("Jeudi") == true) {
+                                System.out.println(convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())));
                                 if (convertToLocalDateTimeViaInstantReccurent(cal.getTime()).concat("T".concat(alert.getHour())).equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString())) {
                                     ConceptMeteoResponse responseMeteo;
                                     List<Location> locations = new ArrayList<>();
