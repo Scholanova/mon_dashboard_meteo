@@ -12,6 +12,27 @@
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" type="text/css" href="../menu/css/default.css" />
     <link rel="stylesheet" type="text/css" href="../menu/css/component.css" />
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="../images/icons/favicon.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../css/util.css">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <!-- Google Fonts -->
@@ -69,39 +90,64 @@
     <!-- Card -->
 
     <br>
-    <br>
 </div>
 
-<div class="row">
-    <div class="col">
-        <div class="card weather-card" style="display: inline-flex;
-    width: 400px;
-    HEIGHT: auto">
+
+<form th:action="@{../findlocation}" method="get" class="login100-form validate-form">
+
+    <div class="container-login100-form-btn">
+        <div class="wrap-input100 validate-input" data-validate = "Entrer ville">
+            <input style="border: solid;
+    border-radius: 20PX;
+    BORDER-COLOR: royalblue;
+    WIDTH: 990PX;
+    TEXT-ALIGN-LAST: CENTER;
+        margin-left: 300PX;
+        background-color: gainsboro;
+" th:name="name" th:value="${name}" class="input100" type="text" required="required" autofocus placeholder="Rechercher une ville"/>
+        </div>
+        <button type="submit" class="login100-form-btn">
+            Rechercher une ville
+        </button>
+    </div>
+</form>
+
+<br>
+
+<div class="cbp-hsinne" style="
+   width: auto;
+    MARGIN-LEFT: 100px;
+    height: auto;
+    display: flex;
+    flex-flow: wrap;
+    float: left;
+    margin-right: 2px;
+        margin-bottom: 20PX;
+
+    " th:if="${not #lists.isEmpty(locations)}" th:each="location : ${locations}">
+
+        <div class="card weather-card"  >
 
             <!-- Card content -->
             <div class="card-body pb-3">
 
                 <!-- Title -->
-                <h4 class="card-title font-weight-bold">Warsaw</h4>
+                <h4 class="card-title font-weight-bold" th:text="${location.name}"></h4>
                 <!-- Text -->
-                <p class="card-text">Mon, 12:30 PM, Mostly Sunny</p>
+                <p class="card-text"  th:text="${location.response.forecast.datetime}"></p>
                 <div class="d-flex justify-content-between">
-                    <p class="display-1 degree">23</p>
-                    <i class="fas fa-sun-o fa-5x pt-3 amber-text"></i>
+                    <p class="display-1 degree" th:text="${location.response.forecast.tmin} + '°'" ></p>
+                    <p class="display-1 degree" th:text="${location.response.forecast.tmax} + '°'"></p>
                 </div>
                 <div class="d-flex justify-content-between mb-4">
-                    <p><i class="fas fa-tint fa-lg text-info pr-2"></i>3% Precipitation</p>
-                    <p><i class="fas fa-leaf fa-lg grey-text pr-2"></i>21 km/h Winds</p>
+                    <p><i class="fas fa-tint fa-lg text-info pr-2" th:text="${location.response.forecast.probarain}+ '%'"></i></p>
+                    <p><i class="fas fa-leaf fa-lg grey-text pr-2" th:text="${location.response.forecast.probafrost}+ '%'"></i></p>
                 </div>
                 <div class="progress md-progress">
                     <div class="progress-bar black" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                <ul class="list-unstyled d-flex justify-content-between font-small text-muted mb-4">
-                    <li class="pl-4">8AM</li>
-                    <li>11AM</li>
-                    <li>2PM</li>
-                    <li>5PM</li>
-                    <li class="pr-4">8PM</li>
+                <ul cla ss="list-unstyled d-flex justify-content-between font-small text-muted mb-4">
+                    <li class="pl-4"><a th:href="@{'/favorites-locations/delete/' + ${location.getId()}}">Supprimer</a></li>
                 </ul>
 
                 <div class="collapse-content">
@@ -172,17 +218,16 @@
                     <hr class="">
 
                     <a class="btn btn-flat red-text p-1 my-1 mr-0 mml-1 deep-purple-text collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
-
                 </div>
+
 
             </div>
 
         </div>
         <!-- Card -->
-    </div>
-    <div class="col"></div>
-    <div class="col"></div>
-    <div class="col"></div>
+</div>
+<div th:if="${#lists.isEmpty(locations)}" style="text-align: center;">
+    <h4> Pas de villes Favorites. Ajouter à partir de la barre de recherche!</h4>
 </div>
 
 <script src="js/cbpHorizontalSlideOutMenu.min.js"></script>
@@ -191,32 +236,7 @@
 		</script>
 
 
-<h1>Liste des lieux d'intérêt</h1>
 
-<form th:action="@{../findlocation}" method="get">
-    <span>Ajouter un nouveau lieu d'intérêt : </span>
-    <input th:name="name" th:value="${name}" />
-    <input type="submit" value="lancer une recherche"/>
-</form>
-
-<div th:if="${not #lists.isEmpty(locations)}">
-    <table>
-        <tr>
-            <th>Nom</th>
-            <th>Météo</th>
-            <th></th>
-        </tr>
-        <tr th:each="location : ${locations}">
-            <td><span th:text="${location.name}" /></td>
-            <td>TODO</td>
-            <td><a th:href="@{'/favorites-locations/delete/' + ${location.getId()}}">Supprimer</a></td>
-        </tr>
-    </table>
-</div>
-
-<div th:if="${#lists.isEmpty(locations)}">
-    <h4> la liste est vide</h4>
-</div>
 
 
 </body>

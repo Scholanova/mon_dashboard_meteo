@@ -1,13 +1,26 @@
 package com.schola.shared.utils;
 
+import com.schola.controller.user.UserController;
 import com.schola.entity.alert.Alert;
+import com.schola.entity.location.Location;
+import com.schola.entity.location.LocationVM;
+import com.schola.entity.user.User;
+import com.schola.entity.weather.ConceptMeteoResponse;
+import com.schola.repository.UserRepository;
 import com.schola.services.LocationService;
+import com.schola.services.UserLocationService;
 import com.schola.services.alert.AlertService;
 import org.quartz.JobExecutionException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -26,10 +39,24 @@ public class EmailService {
     private static AlertService alertService;
     private static LocationService locationService;
 
-    public EmailService(JavaMailSender javaMailSender, AlertService alertService, LocationService locationService) {
+
+    @Autowired
+    RestTemplate restemplate;
+
+    private  UserRepository userRepository;
+    UserLocationService userLocationService;
+
+    private static String TOKEN = "f115ae23198fc26a272240ff66aeca014ca2aaed4c0314ec35e63ae6e96b7438";
+    private static String DAYSEARCH = "0";
+
+
+
+    public EmailService(JavaMailSender javaMailSender, UserLocationService userLocationService , AlertService alertService, UserRepository userRepository ,LocationService locationService) {
         this.javaMailSender = javaMailSender;
         this.alertService = alertService;
         this.locationService = locationService;
+        this.userRepository =  userRepository;
+        this.userLocationService = userLocationService ;
     }
 
 
@@ -130,97 +157,243 @@ public class EmailService {
 
         List<Alert> alertes = EmailService.getAlertes();
 
-        alertes.forEach(alert -> {
-            if (alert.getIsReccurent() == false) {
-                System.out.println("dateSysteme" + convertToLocalDateTimeViaInstant(new Date()));
-                System.out.println("dateAalert" + alert.getDate());
 
-                if (alert.getDate().equals(convertToLocalDateTimeViaInstant(new Date()).toString()))
-                    EmailService.sendEmail("magenelec@gmail.com", alert.getCaption(), "kATSANDE");
-            } else {
-                System.out.println("dateSysteme" + convertToLocalDateTimeViaInstant(new Date()));
-                System.out.println("dateAalert" + alert.getHour());
 
-                Calendar cal = Calendar.getInstance();
-                int day = cal.get(Calendar.DAY_OF_WEEK);
-                System.out.print("Today is ");
-                switch (day) {
-                    case 1:
-                        System.out.print("Dimanche");
-                        alert.getDayslist().forEach(s -> {
-                            if(s.equals("Dimanche") == true){
-                                System.out.println(convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())));
-                                if(convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())).equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString()))
-                                    EmailService.sendEmail("magenelec@gmail.com",alert.getCaption(),"kATSANDE");
+
+            alertes.forEach(alert -> {
+
+
+
+                if (alert.getIsReccurent() == null) {
+                    System.out.println("dateSysteme" + convertToLocalDateTimeViaInstant(new Date()));
+                    System.out.println("dateAalert" + alert.getDate());
+
+                    if (alert.getDate().equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString()))
+                    {
+
+                        ConceptMeteoResponse responseMeteo;
+                        List<Location> locations = userLocationService.getUserLocations("magenelec@gmail.com");
+                        List<LocationVM> locationVMS = new ArrayList<>();
+                        for (int i = 0 ; i< locations.size();i++)
+                        {
+                            ConceptMeteoResponse conceptMeteoResponse ;
+                        System.out.println("user"+"magenelec@gmail.com");
+                            if(locations.get(i).getName().equals(alert.getLocationName()) == true){
+                                responseMeteo = restemplate.getForObject("https://api.meteo-concept.com/api/forecast/daily/" + DAYSEARCH + "?token=" + TOKEN + "&insee="+ locations.get(i).getInsee(), ConceptMeteoResponse.class);
+                                EmailService.sendEmail("magenelec@gmail.com",alert.getCaption(),"Bonjour , retrouver tous les informations du météo de votre ville "+alert.getLocationName()
+                                        + "city: " + responseMeteo.getCity() + "date: "+ responseMeteo.getForecast().getDatetime() + "risque de brouillard: "+responseMeteo.getForecast().getProbafog() + "risque de froid: " + responseMeteo.getForecast().getProbafrost() +"risque de pluie: "+responseMeteo.getForecast().getProbarain()
+                                        + "heure de soleil: " + responseMeteo.getForecast().getSun_hours()+"Temperature max: "+responseMeteo.getForecast().getTmax()+"temperature min: "+responseMeteo.getForecast().getTmin());
                             }
-                        });                        break;
-                    case 2:
-                        System.out.print("Lundi");
-                        alert.getDayslist().forEach(s -> {
-                            if (s.equals("Lundi") == true) {
-                                System.out.println(convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())));
-                                if (convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())).equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString()))
-                                    EmailService.sendEmail("magenelec@gmail.com", alert.getCaption(), "kATSANDE");
-                            }
-                        });
-                        break;
-                    case 3:
-                        System.out.print("Mardi");
-                        alert.getDayslist().forEach(s -> {
-                            if (s.equals("Mardi") == true) {
-                                System.out.println(convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())));
-                                if (convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())).equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString()))
-                                    EmailService.sendEmail("magenelec@gmail.com", alert.getCaption(), "kATSANDE");
-                            }
-                        });
-                        break;
-                    case 4:
-                        System.out.print("Mercredi");
-                        alert.getDayslist().forEach(s -> {
-                            if (s.equals("Mercredi") == true) {
-                                System.out.println(convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())));
-                                if (convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())).equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString()))
-                                    EmailService.sendEmail("magenelec@gmail.com", alert.getCaption(), "kATSANDE");
-                            }
-                        });
-                        break;
-                    case 5:
-                        System.out.print("Jeudi");
-                        alert.getDayslist().forEach(s -> {
-                            if (s.equals("Jeudi") == true) {
-                                System.out.println(convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())));
-                                if (convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())).equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString()))
-                                    EmailService.sendEmail("magenelec@gmail.com", alert.getCaption(), "kATSANDE");
-                            }
-                        });
-                        break;
-                    case 6:
-                        System.out.print("Vendredi");
-                        alert.getDayslist().forEach(s -> {
-                            if (s.equals("Vendredi") == true) {
-                                System.out.println(convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())));
-                                if (convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())).equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString()))
-                                    EmailService.sendEmail("magenelec@gmail.com", alert.getCaption(), "kATSANDE");
-                            }
-                        });
-                        break;
-                    case 7:
-                        System.out.print("Samedi");
-                        alert.getDayslist().forEach(s -> {
-                            if (s.equals("Samedi") == true) {
-                                System.out.println(convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())));
-                                if (convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())).equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString()))
-                                    EmailService.sendEmail("magenelec@gmail.com", alert.getCaption(), "kATSANDE");
-                            }
-                        });
-                        break;
+
+                        }
+                    }
+                } else {
+                    System.out.println("dateSysteme" + convertToLocalDateTimeViaInstant(new Date()));
+                    System.out.println("dateAalert" + alert.getHour());
+
+                    Calendar cal = Calendar.getInstance();
+                    int day = cal.get(Calendar.DAY_OF_WEEK);
+                    System.out.print("Today is ");
+                    switch (day) {
+                        case 1:
+                            System.out.print("Dimanche");
+                            alert.getDayslist().forEach(s -> {
+                                if(s.equals("Dimanche") == true){
+                                    System.out.println(convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())));
+                                    if(convertToLocalDateTimeViaInstantReccurent(cal.getTime()).concat("T".concat(alert.getHour())).equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString()))
+                                    {
+                                        ConceptMeteoResponse responseMeteo;
+                                        List<Location> locations = userLocationService.getUserLocations("magenelec@gmail.com");
+                                        List<LocationVM> locationVMS = new ArrayList<>();
+                                        for (int i = 0 ; i< locations.size();i++)
+                                        {
+                                            ConceptMeteoResponse conceptMeteoResponse ;
+
+                                            if(locations.get(i).getName().equals(alert.getLocationName())){
+                                                responseMeteo = restemplate.getForObject("https://api.meteo-concept.com/api/forecast/daily/" + DAYSEARCH + "?token=" + TOKEN + "&insee="+ locations.get(i).getInsee(), ConceptMeteoResponse.class);
+                                                EmailService.sendEmail("magenelec@gmail.com",alert.getCaption(),"Bonjour , retrouver tous les informations du météo de votre ville "+alert.getLocationName()
+                                                        + "city: " + responseMeteo.getCity() + "date: "+ responseMeteo.getForecast().getDatetime() + "risque de brouillard: "+responseMeteo.getForecast().getProbafog() + "risque de froid: " + responseMeteo.getForecast().getProbafrost() +"risque de pluie: "+responseMeteo.getForecast().getProbarain()
+                                                        + "heure de soleil: " + responseMeteo.getForecast().getSun_hours()+"Temperature max: "+responseMeteo.getForecast().getTmax()+"temperature min: "+responseMeteo.getForecast().getTmin());
+                                            }
+
+                                        }
+
+                                    }
+                                }
+                            });                        break;
+                        case 2:
+                            System.out.print("Lundi");
+                            alert.getDayslist().forEach(s -> {
+                                if (s.equals("Lundi") == true) {
+                                    System.out.println(convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())));
+                                    if(convertToLocalDateTimeViaInstantReccurent(cal.getTime()).concat("T".concat(alert.getHour())).equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString()))
+                                    {
+                                        ConceptMeteoResponse responseMeteo;
+                                        List<Location> locations = userLocationService.getUserLocations("magenelec@gmail.com");
+                                        List<LocationVM> locationVMS = new ArrayList<>();
+                                        for (int i = 0 ; i< locations.size();i++)
+                                        {
+                                            ConceptMeteoResponse conceptMeteoResponse ;
+
+                                            if(locations.get(i).getName().equals(alert.getLocationName())){
+                                                responseMeteo = restemplate.getForObject("https://api.meteo-concept.com/api/forecast/daily/" + DAYSEARCH + "?token=" + TOKEN + "&insee="+ locations.get(i).getInsee(), ConceptMeteoResponse.class);
+                                                EmailService.sendEmail("magenelec@gmail.com",alert.getCaption(),"Bonjour , retrouver tous les informations du météo de votre ville "+alert.getLocationName()
+                                                        + "city: " + responseMeteo.getCity() + "date: "+ responseMeteo.getForecast().getDatetime() + "risque de brouillard: "+responseMeteo.getForecast().getProbafog() + "risque de froid: " + responseMeteo.getForecast().getProbafrost() +"risque de pluie: "+responseMeteo.getForecast().getProbarain()
+                                                        + "heure de soleil: " + responseMeteo.getForecast().getSun_hours()+"Temperature max: "+responseMeteo.getForecast().getTmax()+"temperature min: "+responseMeteo.getForecast().getTmin());
+                                            }
+
+                                        }
+
+                                    }
+                                }
+                            });
+                            break;
+                        case 3:
+                            System.out.print("Mardi");
+                            alert.getDayslist().forEach(s -> {
+                                if (s.equals("Mardi") == true) {
+                                    System.out.println(convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())));
+                                    if(convertToLocalDateTimeViaInstantReccurent(cal.getTime()).concat("T".concat(alert.getHour())).equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString()))
+                                    {
+                                        ConceptMeteoResponse responseMeteo;
+                                        List<Location> locations = userLocationService.getUserLocations("magenelec@gmail.com");
+                                        List<LocationVM> locationVMS = new ArrayList<>();
+                                        for (int i = 0 ; i< locations.size();i++)
+                                        {
+                                            ConceptMeteoResponse conceptMeteoResponse ;
+
+                                            if(locations.get(i).getName().equals(alert.getLocationName())){
+                                                responseMeteo = restemplate.getForObject("https://api.meteo-concept.com/api/forecast/daily/" + DAYSEARCH + "?token=" + TOKEN + "&insee="+ locations.get(i).getInsee(), ConceptMeteoResponse.class);
+                                                EmailService.sendEmail("magenelec@gmail.com",alert.getCaption(),"Bonjour , retrouver tous les informations du météo de votre ville "+alert.getLocationName()
+                                                        + "city: " + responseMeteo.getCity() + "date: "+ responseMeteo.getForecast().getDatetime() + "risque de brouillard: "+responseMeteo.getForecast().getProbafog() + "risque de froid: " + responseMeteo.getForecast().getProbafrost() +"risque de pluie: "+responseMeteo.getForecast().getProbarain()
+                                                        + "heure de soleil: " + responseMeteo.getForecast().getSun_hours()+"Temperature max: "+responseMeteo.getForecast().getTmax()+"temperature min: "+responseMeteo.getForecast().getTmin());
+                                            }
+
+                                        }
+
+                                    }
+                                }
+                            });
+                            break;
+                        case 4:
+                            System.out.print("Mercredi");
+                            alert.getDayslist().forEach(s -> {
+                                if (s.equals("Mercredi") == true) {
+                                    System.out.println(convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())));
+                                    if(convertToLocalDateTimeViaInstantReccurent(cal.getTime()).concat("T".concat(alert.getHour())).equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString()))
+                                    {
+                                        ConceptMeteoResponse responseMeteo;
+                                        List<Location> locations = userLocationService.getUserLocations("magenelec@gmail.com");
+                                        List<LocationVM> locationVMS = new ArrayList<>();
+                                        for (int i = 0 ; i< locations.size();i++)
+                                        {
+                                            ConceptMeteoResponse conceptMeteoResponse ;
+
+                                            if(locations.get(i).getName().equals(alert.getLocationName())){
+                                                responseMeteo = restemplate.getForObject("https://api.meteo-concept.com/api/forecast/daily/" + DAYSEARCH + "?token=" + TOKEN + "&insee="+ locations.get(i).getInsee(), ConceptMeteoResponse.class);
+                                                EmailService.sendEmail("magenelec@gmail.com",alert.getCaption(),"Bonjour , retrouver tous les informations du météo de votre ville "+alert.getLocationName()
+                                                        + "city: " + responseMeteo.getCity() + "date: "+ responseMeteo.getForecast().getDatetime() + "risque de brouillard: "+responseMeteo.getForecast().getProbafog() + "risque de froid: " + responseMeteo.getForecast().getProbafrost() +"risque de pluie: "+responseMeteo.getForecast().getProbarain()
+                                                        + "heure de soleil: " + responseMeteo.getForecast().getSun_hours()+"Temperature max: "+responseMeteo.getForecast().getTmax()+"temperature min: "+responseMeteo.getForecast().getTmin());
+                                            }
+
+                                        }
+
+                                    }
+                                }
+                            });
+                            break;
+                        case 5:
+                            System.out.print("Jeudi");
+                            alert.getDayslist().forEach(s -> {
+                                if (s.equals("Jeudi") == true) {
+                                    System.out.println(convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())));
+                                    if(convertToLocalDateTimeViaInstantReccurent(cal.getTime()).concat("T".concat(alert.getHour())).equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString()))
+                                    {
+                                        ConceptMeteoResponse responseMeteo;
+                                        List<Location> locations = userLocationService.getUserLocations("magenelec@gmail.com");
+                                        List<LocationVM> locationVMS = new ArrayList<>();
+                                        for (int i = 0 ; i< locations.size();i++)
+                                        {
+                                            ConceptMeteoResponse conceptMeteoResponse ;
+
+                                            if(locations.get(i).getName().equals(alert.getLocationName())){
+                                                responseMeteo = restemplate.getForObject("https://api.meteo-concept.com/api/forecast/daily/" + DAYSEARCH + "?token=" + TOKEN + "&insee="+ locations.get(i).getInsee(), ConceptMeteoResponse.class);
+                                                EmailService.sendEmail("magenelec@gmail.com",alert.getCaption(),"Bonjour , retrouver tous les informations du météo de votre ville "+alert.getLocationName()
+                                                        + "city: " + responseMeteo.getCity() + "date: "+ responseMeteo.getForecast().getDatetime() + "risque de brouillard: "+responseMeteo.getForecast().getProbafog() + "risque de froid: " + responseMeteo.getForecast().getProbafrost() +"risque de pluie: "+responseMeteo.getForecast().getProbarain()
+                                                        + "heure de soleil: " + responseMeteo.getForecast().getSun_hours()+"Temperature max: "+responseMeteo.getForecast().getTmax()+"temperature min: "+responseMeteo.getForecast().getTmin());
+                                            }
+
+                                        }
+
+                                    }
+                                }
+                            });
+                            break;
+                        case 6:
+                            System.out.print("Vendredi");
+                            alert.getDayslist().forEach(s -> {
+                                if (s.equals("Vendredi") == true) {
+                                    System.out.println("yes"+convertToLocalDateTimeViaInstant(cal.getTime()).concat("T".concat(alert.getHour())));
+                                    if(convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())).equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString()))
+                                    {
+                                        System.out.println("uout");
+                                        ConceptMeteoResponse responseMeteo;
+                                        List<Location> locations = userLocationService.getUserLocations("magenelec@gmail.com");
+                                        List<LocationVM> locationVMS = new ArrayList<>();
+                                        for (int i = 0 ; i< locations.size();i++)
+                                        {
+                                            ConceptMeteoResponse conceptMeteoResponse ;
+
+                                            if(locations.get(i).getName().equals(alert.getLocationName())){
+                                                responseMeteo = restemplate.getForObject("https://api.meteo-concept.com/api/forecast/daily/" + DAYSEARCH + "?token=" + TOKEN + "&insee="+ locations.get(i).getInsee(), ConceptMeteoResponse.class);
+                                                EmailService.sendEmail("magenelec@gmail.com",alert.getCaption(),"Bonjour , retrouver tous les informations du météo de votre ville "+alert.getLocationName()
+                                                        + "city: " + responseMeteo.getCity() + "date: "+ responseMeteo.getForecast().getDatetime() + "risque de brouillard: "+responseMeteo.getForecast().getProbafog() + "risque de froid: " + responseMeteo.getForecast().getProbafrost() +"risque de pluie: "+responseMeteo.getForecast().getProbarain()
+                                                        + "heure de soleil: " + responseMeteo.getForecast().getSun_hours()+"Temperature max: "+responseMeteo.getForecast().getTmax()+"temperature min: "+responseMeteo.getForecast().getTmin());
+                                            }
+
+                                        }
+
+                                    }
+                                }
+                            });
+                            break;
+                        case 7:
+                            System.out.print("Samedi");
+                            alert.getDayslist().forEach(s -> {
+                                if (s.equals("Samedi") == true) {
+                                    System.out.println(convertToLocalDateTimeViaInstantReccurent(cal.getTime()).concat("T".concat(alert.getHour())));
+                                    if(convertToLocalDateTimeViaInstantReccurent(cal.getTime()).concat("T".concat(alert.getHour())).equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString()))
+                                    {
+                                        ConceptMeteoResponse responseMeteo;
+                                        List<Location> locations = userLocationService.getUserLocations("magenelec@gmail.com");
+                                        List<LocationVM> locationVMS = new ArrayList<>();
+                                        for (int i = 0 ; i< locations.size();i++)
+                                        {
+                                            ConceptMeteoResponse conceptMeteoResponse ;
+
+                                            if(locations.get(i).getName().equals(alert.getLocationName())){
+                                                responseMeteo = restemplate.getForObject("https://api.meteo-concept.com/api/forecast/daily/" + DAYSEARCH + "?token=" + TOKEN + "&insee="+ locations.get(i).getInsee(), ConceptMeteoResponse.class);
+                                                EmailService.sendEmail("magenelec@gmail.com",alert.getCaption(),"Bonjour , retrouver tous les informations du météo de votre ville "+alert.getLocationName()
+                                                        + "city: " + responseMeteo.getCity() + "date: "+ responseMeteo.getForecast().getDatetime() + "risque de brouillard: "+responseMeteo.getForecast().getProbafog() + "risque de froid: " + responseMeteo.getForecast().getProbafrost() +"risque de pluie: "+responseMeteo.getForecast().getProbarain()
+                                                        + "heure de soleil: " + responseMeteo.getForecast().getSun_hours()+"Temperature max: "+responseMeteo.getForecast().getTmax()+"temperature min: "+responseMeteo.getForecast().getTmin());
+                                            }
+
+                                        }
+
+                                    }
+                                }
+                            });
+                            break;
+                    }
+
+
                 }
+            });
 
 
-            }
-        });
 
-    }
+        }
+
 
 }
 

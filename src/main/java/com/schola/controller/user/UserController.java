@@ -2,6 +2,9 @@ package com.schola.controller.user;
 
 
 import com.schola.entity.location.Location;
+import com.schola.entity.location.LocationResponse;
+import com.schola.entity.location.LocationVM;
+import com.schola.entity.weather.ConceptMeteoResponse;
 import com.schola.repository.LocationRepository;
 import com.schola.repository.UserRepository;
 import com.schola.entity.user.Role;
@@ -22,8 +25,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +40,9 @@ public class UserController {
 
     @Autowired
     UserLocationService userLocationService;
+    private static String TOKEN = "f115ae23198fc26a272240ff66aeca014ca2aaed4c0314ec35e63ae6e96b7438";
+    private static String DAYSEARCH = "0";
+
 
     @Autowired
     private UserRepository userRepository;
@@ -42,6 +50,8 @@ public class UserController {
     @Autowired
     private LocationRepository locationRepository;
 
+    @Autowired
+    RestTemplate restemplate;
 
     @GetMapping("/login")
     public ModelAndView loginGet() {
@@ -102,8 +112,28 @@ public class UserController {
         if(user == null)
             return new ModelAndView("redirect:" + "/");
 
+
+        ConceptMeteoResponse responseMeteo;
         List<Location> locations = userLocationService.getUserLocations(user.getUsername());
-        model.addAttribute("locations", locations);
+        List<LocationVM> locationVMS = new ArrayList<>();
+        for (int i = 0 ; i< locations.size();i++)
+        {
+            ConceptMeteoResponse conceptMeteoResponse ;
+
+                responseMeteo = restemplate.getForObject("https://api.meteo-concept.com/api/forecast/daily/" + DAYSEARCH + "?token=" + TOKEN + "&insee="+ locations.get(i).getInsee(), ConceptMeteoResponse.class);
+                conceptMeteoResponse = responseMeteo;
+                LocationVM locationVM = LocationVM.builder()
+                        .id(locations.get(i).getId())
+                        .insee(locations.get(i).getInsee())
+                        .name(locations.get(i).getName())
+                        .response(conceptMeteoResponse)
+                        .build();
+                locationVMS.add(locationVM);
+            //locations.get(i).setResponse(conceptMeteoResponse);
+        }
+
+
+        model.addAttribute("locations", locationVMS);
 
         return new ModelAndView("main/main") ;
     }

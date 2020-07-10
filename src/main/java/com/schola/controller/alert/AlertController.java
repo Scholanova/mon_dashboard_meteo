@@ -142,7 +142,7 @@ public class AlertController {
 
         //Location location = locationService.findByName(locationId);
 
-        Alert alert = new Alert(caption, isReccurent, days, hour, date, user.getIdUser(), Long.parseLong(locationId));
+        Alert alert = new Alert(caption, isReccurent, days, hour, date.concat(":00"), user.getIdUser(), Long.parseLong(locationId));
         alertService.saveAlert(alert);
         return "redirect:/alert";
     }

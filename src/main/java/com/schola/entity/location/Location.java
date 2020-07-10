@@ -1,6 +1,7 @@
 package com.schola.entity.location;
 
 import com.schola.entity.user.User;
+import com.schola.entity.weather.ConceptMeteoResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,6 +30,9 @@ public class Location {
 
     @ManyToMany(mappedBy = "favoritesLocations")
     private List<User> users = new ArrayList<>();
+
+
+
 
     public Location() {
     }

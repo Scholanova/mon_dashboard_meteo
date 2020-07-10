@@ -11,6 +11,10 @@
     <link rel="stylesheet" type="text/css" href="../menu/css/default.css" />
     <link rel="stylesheet" type="text/css" href="../menu/css/component.css" />
     <script src="../menu/js/modernizr.custom.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -44,21 +48,37 @@
 			var menu = new cbpHorizontalSlideOutMenu( document.getElementById( 'cbp-hsmenu-wrapper' ) );
 </script>
 
-<h1 th:text="${response.getCity().getName()} + ' (' + ${response.getCity().getCp()} +')'"/>
 
-<h3 th:text="${response.getForecast().getDatetime()}"/>
+<div class="container">
+    <h2>Informations météorologique</h2>
+    <div class="panel-group">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">Informations météorologique</div>
+            <div class="panel-body">
+
+                <h1 th:text="${response.getCity().getName()} + ' (' + ${response.getCity().getCp()} +')'"/>
+
+                <h3 th:text="${response.getForecast().getDatetime()}"/>
+<br>
+                <span>Weather <p th:text="${response.getForecast().getWeather()}"/></span>
+                <span>Temperature Minimal <p th:text="${response.getForecast().getTmin()} + '°'"/></span>
+                <span>Temperature Maximal <p th:text="${response.getForecast().getTmax()} + '°'"/></span>
+                <span>Heures d'ensoleillement <p th:text="${response.getForecast().getSun_hours()} + 'H'"/></span>
+                <span>Risque de pluie <p th:text="${response.getForecast().getProbarain()}+ '%'"/></span>
+                <span>Rique de froid <p th:text="${response.getForecast().getProbafrost()}+ '%'"/></span>
+                <span>Risque de brouillard<p th:text="${response.getForecast().getProbafog()}+ '%'"/></span>
+
+            </div>
+        </div>
+
+    </div>
+</div>
 
 
 <div>
-    <h2>Informations météorologique</h2>
     <table>
-      <span>Weather <p th:text="${response.getForecast().getWeather()}"/></span>
-      <span>Temperature Minimal <p th:text="${response.getForecast().getTmin()} + '°'"/></span>
-      <span>Temperature Maximal <p th:text="${response.getForecast().getTmax()} + '°'"/></span>
-      <span>Heures d'ensoleillement <p th:text="${response.getForecast().getSun_hours()} + 'H'"/></span>
-      <span>Risque de pluie <p th:text="${response.getForecast().getProbarain()}+ '%'"/></span>
-      <span>Rique de froid <p th:text="${response.getForecast().getProbafrost()}+ '%'"/></span>
-      <span>Risque de brouillard<p th:text="${response.getForecast().getProbafog()}+ '%'"/></span>
+
     </table>
 </div>
 

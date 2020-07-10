@@ -11,6 +11,11 @@
     <link rel="stylesheet" type="text/css" href="../menu/css/default.css" />
     <link rel="stylesheet" type="text/css" href="../menu/css/component.css" />
     <script src="../menu/js/modernizr.custom.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -44,32 +49,37 @@
 			var menu = new cbpHorizontalSlideOutMenu( document.getElementById( 'cbp-hsmenu-wrapper' ) );
 </script>
 
-<h1>Liste des lieux trouvés</h1>
 
-<table>
-    <tr>
-        <th>Nom</th>
-        <th>Code Postal</th>
-        <th></th>
-        <th></th>
-    </tr>
-    <tr th:each="LocationResponse : ${response}">
-        <td><span th:text="${LocationResponse.getNom()}" /></td>
-        <td><span th:text="${LocationResponse.getFirstCodePostal()}" /></td>
-        <td><a th:href="@{'../weatherlocation/' + ${LocationResponse.getCode()}}"><button>Afficher Méteo</button></a></td>
-        <td>
-            <form th:action="@{/favorites-locations/add}" method="post">
-                <input type="hidden" name="cityName" id="cityName" th:value="${LocationResponse.getNom()}" />
-                <input type="hidden" name="cityInsee" id="cityInsee" th:value="${LocationResponse.getCode()}" />
-                <input type="submit" value="Ajouter" />
-            </form>
-<!--            <a th:href="@{'../favorites-locations/add?cityName=' + ${LocationResponse.getNom()} + '&cityInsee=' +${LocationResponse.getCode()}}">-->
-<!--                <button>Add</button>-->
-<!--            </a>-->
-        </td>
-    </tr>
+<div class="container">
+    <br>
+    <h2>Liste des lieux trouvés</h2>
+    <br>
+    <table class="table table-bordered">
+        <tr>
+            <th>Nom</th>
+            <th>Code Postal</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr th:each="LocationResponse : ${response}">
+            <td><span th:text="${LocationResponse.getNom()}" /></td>
+            <td><span th:text="${LocationResponse.getFirstCodePostal()}" /></td>
+            <td><a th:href="@{'../weatherlocation/' + ${LocationResponse.getCode()}}"><button class="btn btn-primary">Afficher Méteo</button></a></td>
+            <td>
+                <form th:action="@{/favorites-locations/add}" method="post">
+                    <input type="hidden" name="cityName" id="cityName" th:value="${LocationResponse.getNom()}" />
+                    <input type="hidden" name="cityInsee" id="cityInsee" th:value="${LocationResponse.getCode()}" />
+                    <input class="btn btn-primary" type="submit" value="Ajouter" />
+                </form>
+                <!--            <a th:href="@{'../favorites-locations/add?cityName=' + ${LocationResponse.getNom()} + '&cityInsee=' +${LocationResponse.getCode()}}">-->
+                <!--                <button>Add</button>-->
+                <!--            </a>-->
+            </td>
+        </tr>
 
-</table>
+    </table>
+</div>
+
 
 </body>
 </html>
