@@ -36,8 +36,8 @@ public class EmailService {
     private static JavaMailSender javaMailSender;
 
 
-    private static AlertService alertService;
-    private static LocationService locationService;
+    private  AlertService alertService;
+    private  LocationService locationService;
 
 
     @Autowired
@@ -71,11 +71,11 @@ public class EmailService {
 
     }
 
-    public static List<Alert> getAlertes() {
+    public List<Alert> getAlertes() {
 
 
         List<Alert> alerts = new ArrayList<>();
-        alerts = alertService.listAll();
+        alerts = this.alertService.listAll();
 
         alerts.forEach(alert -> {
             alert.setLocationName(locationService.findById(alert.getLocationId()).get().getName());
