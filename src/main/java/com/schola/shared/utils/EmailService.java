@@ -337,13 +337,15 @@ public class EmailService {
                                         ConceptMeteoResponse responseMeteo;
                                         List<Location> locations = new ArrayList<>();
 
+
+
                                         locations = userLocationService.getUserLocations("magenelec@gmail.com");
                                         List<LocationVM> locationVMS = new ArrayList<>();
                                         for (int i = 0 ; i< locations.size();i++)
                                         {
                                             ConceptMeteoResponse conceptMeteoResponse ;
 
-                                            if(locations.get(i).getName().equals(alert.getLocationName())){
+                                            if(locations.get(i).getName().equals(alert.getLocationName())== true){
                                                 responseMeteo = restemplate.getForObject("https://api.meteo-concept.com/api/forecast/daily/" + DAYSEARCH + "?token=" + TOKEN + "&insee="+ locations.get(i).getInsee(), ConceptMeteoResponse.class);
                                                 EmailService.sendEmail("magenelec@gmail.com",alert.getCaption()," Bonjour , Vous trouverez tous les informations du météo de votre ville "+alert.getLocationName()
                                                         + " city: " + alert.getLocationName() + " date: "+ responseMeteo.getForecast().getDatetime() + " risque de brouillard: "+responseMeteo.getForecast().getProbafog() + " risque de froid: " + responseMeteo.getForecast().getProbafrost() +" risque de pluie: "+responseMeteo.getForecast().getProbarain()
