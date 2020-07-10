@@ -75,7 +75,8 @@ public class EmailService {
     public static List<Alert> getAlertes() {
 
 
-        List<Alert> alerts = alertService.listAll();
+        List<Alert> alerts = new ArrayList<>();
+        alerts = alertService.listAll();
 
         alerts.forEach(alert -> {
             alert.setLocationName(locationService.findById(alert.getLocationId()).get().getName());
@@ -153,9 +154,10 @@ public class EmailService {
 
     @Scheduled(fixedRate = 30)
     public void cheekAlertes() throws JobExecutionException {
-        System.out.println("Job1 --->>> Time is " + convertToLocalDateTimeViaInstant(new Date()));
 
-        List<Alert> alertes = EmailService.getAlertes();
+        List<Alert> alertes =  new ArrayList<>();
+
+        alertes = EmailService.getAlertes();
 
 
 
@@ -165,45 +167,40 @@ public class EmailService {
 
 
                 if (alert.getIsReccurent() == null) {
-                    System.out.println("dateSysteme" + convertToLocalDateTimeViaInstant(new Date()));
-                    System.out.println("dateAalert" + alert.getDate());
+
 
                     if (alert.getDate().equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString()))
                     {
 
                         ConceptMeteoResponse responseMeteo;
-                        List<Location> locations = userLocationService.getUserLocations("magenelec@gmail.com");
+                        List<Location> locations = new ArrayList<>();
+                        locations = userLocationService.getUserLocations("magenelec@gmail.com");
                         List<LocationVM> locationVMS = new ArrayList<>();
                         for (int i = 0 ; i< locations.size();i++)
                         {
                             ConceptMeteoResponse conceptMeteoResponse ;
-                        System.out.println("user"+"magenelec@gmail.com");
                             if(locations.get(i).getName().equals(alert.getLocationName()) == true){
                                 responseMeteo = restemplate.getForObject("https://api.meteo-concept.com/api/forecast/daily/" + DAYSEARCH + "?token=" + TOKEN + "&insee="+ locations.get(i).getInsee(), ConceptMeteoResponse.class);
-                                EmailService.sendEmail("magenelec@gmail.com",alert.getCaption(),"Bonjour , retrouver tous les informations du météo de votre ville "+alert.getLocationName()
-                                        + "city: " + responseMeteo.getCity() + "date: "+ responseMeteo.getForecast().getDatetime() + "risque de brouillard: "+responseMeteo.getForecast().getProbafog() + "risque de froid: " + responseMeteo.getForecast().getProbafrost() +"risque de pluie: "+responseMeteo.getForecast().getProbarain()
-                                        + "heure de soleil: " + responseMeteo.getForecast().getSun_hours()+"Temperature max: "+responseMeteo.getForecast().getTmax()+"temperature min: "+responseMeteo.getForecast().getTmin());
+                                EmailService.sendEmail("magenelec@gmail.com",alert.getCaption()," Bonjour , Vous trouverez tous les informations du météo de votre ville "+alert.getLocationName()
+                                        + " city: " + alert.getLocationName() + " date: "+ responseMeteo.getForecast().getDatetime() + " risque de brouillard: "+responseMeteo.getForecast().getProbafog() + " risque de froid: " + responseMeteo.getForecast().getProbafrost() +" risque de pluie: "+responseMeteo.getForecast().getProbarain()
+                                        + " heure de soleil: " + responseMeteo.getForecast().getSun_hours()+" Temperature max: "+responseMeteo.getForecast().getTmax()+"temperature min: "+responseMeteo.getForecast().getTmin());
                             }
 
                         }
                     }
                 } else {
-                    System.out.println("dateSysteme" + convertToLocalDateTimeViaInstant(new Date()));
-                    System.out.println("dateAalert" + alert.getHour());
 
                     Calendar cal = Calendar.getInstance();
                     int day = cal.get(Calendar.DAY_OF_WEEK);
-                    System.out.print("Today is ");
                     switch (day) {
                         case 1:
-                            System.out.print("Dimanche");
                             alert.getDayslist().forEach(s -> {
                                 if(s.equals("Dimanche") == true){
-                                    System.out.println(convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())));
-                                    if(convertToLocalDateTimeViaInstantReccurent(cal.getTime()).concat("T".concat(alert.getHour())).equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString()))
+                                    if(convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())).equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString()))
                                     {
                                         ConceptMeteoResponse responseMeteo;
-                                        List<Location> locations = userLocationService.getUserLocations("magenelec@gmail.com");
+                                        List<Location> locations = new ArrayList<>();
+                                       locations = userLocationService.getUserLocations("magenelec@gmail.com");
                                         List<LocationVM> locationVMS = new ArrayList<>();
                                         for (int i = 0 ; i< locations.size();i++)
                                         {
@@ -222,14 +219,14 @@ public class EmailService {
                                 }
                             });                        break;
                         case 2:
-                            System.out.print("Lundi");
                             alert.getDayslist().forEach(s -> {
                                 if (s.equals("Lundi") == true) {
                                     System.out.println(convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())));
                                     if(convertToLocalDateTimeViaInstantReccurent(cal.getTime()).concat("T".concat(alert.getHour())).equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString()))
                                     {
                                         ConceptMeteoResponse responseMeteo;
-                                        List<Location> locations = userLocationService.getUserLocations("magenelec@gmail.com");
+                                        List<Location> locations = new ArrayList<>();
+                                        locations = userLocationService.getUserLocations("magenelec@gmail.com");
                                         List<LocationVM> locationVMS = new ArrayList<>();
                                         for (int i = 0 ; i< locations.size();i++)
                                         {
@@ -237,9 +234,9 @@ public class EmailService {
 
                                             if(locations.get(i).getName().equals(alert.getLocationName())){
                                                 responseMeteo = restemplate.getForObject("https://api.meteo-concept.com/api/forecast/daily/" + DAYSEARCH + "?token=" + TOKEN + "&insee="+ locations.get(i).getInsee(), ConceptMeteoResponse.class);
-                                                EmailService.sendEmail("magenelec@gmail.com",alert.getCaption(),"Bonjour , retrouver tous les informations du météo de votre ville "+alert.getLocationName()
-                                                        + "city: " + responseMeteo.getCity() + "date: "+ responseMeteo.getForecast().getDatetime() + "risque de brouillard: "+responseMeteo.getForecast().getProbafog() + "risque de froid: " + responseMeteo.getForecast().getProbafrost() +"risque de pluie: "+responseMeteo.getForecast().getProbarain()
-                                                        + "heure de soleil: " + responseMeteo.getForecast().getSun_hours()+"Temperature max: "+responseMeteo.getForecast().getTmax()+"temperature min: "+responseMeteo.getForecast().getTmin());
+                                                EmailService.sendEmail("magenelec@gmail.com",alert.getCaption()," Bonjour , Vous trouverez tous les informations du météo de votre ville "+alert.getLocationName()
+                                                        + " city: " + alert.getLocationName() + " date: "+ responseMeteo.getForecast().getDatetime() + " risque de brouillard: "+responseMeteo.getForecast().getProbafog() + " risque de froid: " + responseMeteo.getForecast().getProbafrost() +" risque de pluie: "+responseMeteo.getForecast().getProbarain()
+                                                        + " heure de soleil: " + responseMeteo.getForecast().getSun_hours()+" Temperature max: "+responseMeteo.getForecast().getTmax()+"temperature min: "+responseMeteo.getForecast().getTmin());
                                             }
 
                                         }
@@ -249,14 +246,15 @@ public class EmailService {
                             });
                             break;
                         case 3:
-                            System.out.print("Mardi");
                             alert.getDayslist().forEach(s -> {
                                 if (s.equals("Mardi") == true) {
                                     System.out.println(convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())));
-                                    if(convertToLocalDateTimeViaInstantReccurent(cal.getTime()).concat("T".concat(alert.getHour())).equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString()))
+                                    if(convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())).equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString()))
                                     {
                                         ConceptMeteoResponse responseMeteo;
-                                        List<Location> locations = userLocationService.getUserLocations("magenelec@gmail.com");
+                                        List<Location> locations = new ArrayList<>();
+
+                                         locations = userLocationService.getUserLocations("magenelec@gmail.com");
                                         List<LocationVM> locationVMS = new ArrayList<>();
                                         for (int i = 0 ; i< locations.size();i++)
                                         {
@@ -264,9 +262,9 @@ public class EmailService {
 
                                             if(locations.get(i).getName().equals(alert.getLocationName())){
                                                 responseMeteo = restemplate.getForObject("https://api.meteo-concept.com/api/forecast/daily/" + DAYSEARCH + "?token=" + TOKEN + "&insee="+ locations.get(i).getInsee(), ConceptMeteoResponse.class);
-                                                EmailService.sendEmail("magenelec@gmail.com",alert.getCaption(),"Bonjour , retrouver tous les informations du météo de votre ville "+alert.getLocationName()
-                                                        + "city: " + responseMeteo.getCity() + "date: "+ responseMeteo.getForecast().getDatetime() + "risque de brouillard: "+responseMeteo.getForecast().getProbafog() + "risque de froid: " + responseMeteo.getForecast().getProbafrost() +"risque de pluie: "+responseMeteo.getForecast().getProbarain()
-                                                        + "heure de soleil: " + responseMeteo.getForecast().getSun_hours()+"Temperature max: "+responseMeteo.getForecast().getTmax()+"temperature min: "+responseMeteo.getForecast().getTmin());
+                                                EmailService.sendEmail("magenelec@gmail.com",alert.getCaption()," Bonjour , Vous trouverez tous les informations du météo de votre ville "+alert.getLocationName()
+                                                        + " city: " + alert.getLocationName() + " date: "+ responseMeteo.getForecast().getDatetime() + " risque de brouillard: "+responseMeteo.getForecast().getProbafog() + " risque de froid: " + responseMeteo.getForecast().getProbafrost() +" risque de pluie: "+responseMeteo.getForecast().getProbarain()
+                                                        + " heure de soleil: " + responseMeteo.getForecast().getSun_hours()+" Temperature max: "+responseMeteo.getForecast().getTmax()+"temperature min: "+responseMeteo.getForecast().getTmin());
                                             }
 
                                         }
@@ -276,14 +274,15 @@ public class EmailService {
                             });
                             break;
                         case 4:
-                            System.out.print("Mercredi");
                             alert.getDayslist().forEach(s -> {
                                 if (s.equals("Mercredi") == true) {
                                     System.out.println(convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())));
                                     if(convertToLocalDateTimeViaInstantReccurent(cal.getTime()).concat("T".concat(alert.getHour())).equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString()))
                                     {
                                         ConceptMeteoResponse responseMeteo;
-                                        List<Location> locations = userLocationService.getUserLocations("magenelec@gmail.com");
+                                        List<Location> locations = new ArrayList<>();
+
+                                        locations = userLocationService.getUserLocations("magenelec@gmail.com");
                                         List<LocationVM> locationVMS = new ArrayList<>();
                                         for (int i = 0 ; i< locations.size();i++)
                                         {
@@ -291,9 +290,9 @@ public class EmailService {
 
                                             if(locations.get(i).getName().equals(alert.getLocationName())){
                                                 responseMeteo = restemplate.getForObject("https://api.meteo-concept.com/api/forecast/daily/" + DAYSEARCH + "?token=" + TOKEN + "&insee="+ locations.get(i).getInsee(), ConceptMeteoResponse.class);
-                                                EmailService.sendEmail("magenelec@gmail.com",alert.getCaption(),"Bonjour , retrouver tous les informations du météo de votre ville "+alert.getLocationName()
-                                                        + "city: " + responseMeteo.getCity() + "date: "+ responseMeteo.getForecast().getDatetime() + "risque de brouillard: "+responseMeteo.getForecast().getProbafog() + "risque de froid: " + responseMeteo.getForecast().getProbafrost() +"risque de pluie: "+responseMeteo.getForecast().getProbarain()
-                                                        + "heure de soleil: " + responseMeteo.getForecast().getSun_hours()+"Temperature max: "+responseMeteo.getForecast().getTmax()+"temperature min: "+responseMeteo.getForecast().getTmin());
+                                                EmailService.sendEmail("magenelec@gmail.com",alert.getCaption()," Bonjour , Vous trouverez tous les informations du météo de votre ville "+alert.getLocationName()
+                                                        + " city: " + alert.getLocationName() + " date: "+ responseMeteo.getForecast().getDatetime() + " risque de brouillard: "+responseMeteo.getForecast().getProbafog() + " risque de froid: " + responseMeteo.getForecast().getProbafrost() +" risque de pluie: "+responseMeteo.getForecast().getProbarain()
+                                                        + " heure de soleil: " + responseMeteo.getForecast().getSun_hours()+" Temperature max: "+responseMeteo.getForecast().getTmax()+"temperature min: "+responseMeteo.getForecast().getTmin());
                                             }
 
                                         }
@@ -303,14 +302,15 @@ public class EmailService {
                             });
                             break;
                         case 5:
-                            System.out.print("Jeudi");
                             alert.getDayslist().forEach(s -> {
                                 if (s.equals("Jeudi") == true) {
                                     System.out.println(convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())));
                                     if(convertToLocalDateTimeViaInstantReccurent(cal.getTime()).concat("T".concat(alert.getHour())).equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString()))
                                     {
                                         ConceptMeteoResponse responseMeteo;
-                                        List<Location> locations = userLocationService.getUserLocations("magenelec@gmail.com");
+                                        List<Location> locations = new ArrayList<>();
+
+                                        locations = userLocationService.getUserLocations("magenelec@gmail.com");
                                         List<LocationVM> locationVMS = new ArrayList<>();
                                         for (int i = 0 ; i< locations.size();i++)
                                         {
@@ -318,9 +318,9 @@ public class EmailService {
 
                                             if(locations.get(i).getName().equals(alert.getLocationName())){
                                                 responseMeteo = restemplate.getForObject("https://api.meteo-concept.com/api/forecast/daily/" + DAYSEARCH + "?token=" + TOKEN + "&insee="+ locations.get(i).getInsee(), ConceptMeteoResponse.class);
-                                                EmailService.sendEmail("magenelec@gmail.com",alert.getCaption(),"Bonjour , retrouver tous les informations du météo de votre ville "+alert.getLocationName()
-                                                        + "city: " + responseMeteo.getCity() + "date: "+ responseMeteo.getForecast().getDatetime() + "risque de brouillard: "+responseMeteo.getForecast().getProbafog() + "risque de froid: " + responseMeteo.getForecast().getProbafrost() +"risque de pluie: "+responseMeteo.getForecast().getProbarain()
-                                                        + "heure de soleil: " + responseMeteo.getForecast().getSun_hours()+"Temperature max: "+responseMeteo.getForecast().getTmax()+"temperature min: "+responseMeteo.getForecast().getTmin());
+                                                EmailService.sendEmail("magenelec@gmail.com",alert.getCaption()," Bonjour , Vous trouverez tous les informations du météo de votre ville "+alert.getLocationName()
+                                                        + " city: " + alert.getLocationName() + " date: "+ responseMeteo.getForecast().getDatetime() + " risque de brouillard: "+responseMeteo.getForecast().getProbafog() + " risque de froid: " + responseMeteo.getForecast().getProbafrost() +" risque de pluie: "+responseMeteo.getForecast().getProbarain()
+                                                        + " heure de soleil: " + responseMeteo.getForecast().getSun_hours()+" Temperature max: "+responseMeteo.getForecast().getTmax()+"temperature min: "+responseMeteo.getForecast().getTmin());
                                             }
 
                                         }
@@ -330,15 +330,14 @@ public class EmailService {
                             });
                             break;
                         case 6:
-                            System.out.print("Vendredi");
                             alert.getDayslist().forEach(s -> {
                                 if (s.equals("Vendredi") == true) {
-                                    System.out.println("yes"+convertToLocalDateTimeViaInstant(cal.getTime()).concat("T".concat(alert.getHour())));
                                     if(convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())).equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString()))
                                     {
-                                        System.out.println("uout");
                                         ConceptMeteoResponse responseMeteo;
-                                        List<Location> locations = userLocationService.getUserLocations("magenelec@gmail.com");
+                                        List<Location> locations = new ArrayList<>();
+
+                                        locations = userLocationService.getUserLocations("magenelec@gmail.com");
                                         List<LocationVM> locationVMS = new ArrayList<>();
                                         for (int i = 0 ; i< locations.size();i++)
                                         {
@@ -346,9 +345,9 @@ public class EmailService {
 
                                             if(locations.get(i).getName().equals(alert.getLocationName())){
                                                 responseMeteo = restemplate.getForObject("https://api.meteo-concept.com/api/forecast/daily/" + DAYSEARCH + "?token=" + TOKEN + "&insee="+ locations.get(i).getInsee(), ConceptMeteoResponse.class);
-                                                EmailService.sendEmail("magenelec@gmail.com",alert.getCaption(),"Bonjour , retrouver tous les informations du météo de votre ville "+alert.getLocationName()
-                                                        + "city: " + responseMeteo.getCity() + "date: "+ responseMeteo.getForecast().getDatetime() + "risque de brouillard: "+responseMeteo.getForecast().getProbafog() + "risque de froid: " + responseMeteo.getForecast().getProbafrost() +"risque de pluie: "+responseMeteo.getForecast().getProbarain()
-                                                        + "heure de soleil: " + responseMeteo.getForecast().getSun_hours()+"Temperature max: "+responseMeteo.getForecast().getTmax()+"temperature min: "+responseMeteo.getForecast().getTmin());
+                                                EmailService.sendEmail("magenelec@gmail.com",alert.getCaption()," Bonjour , Vous trouverez tous les informations du météo de votre ville "+alert.getLocationName()
+                                                        + " city: " + alert.getLocationName() + " date: "+ responseMeteo.getForecast().getDatetime() + " risque de brouillard: "+responseMeteo.getForecast().getProbafog() + " risque de froid: " + responseMeteo.getForecast().getProbafrost() +" risque de pluie: "+responseMeteo.getForecast().getProbarain()
+                                                        + " heure de soleil: " + responseMeteo.getForecast().getSun_hours()+" Temperature max: "+responseMeteo.getForecast().getTmax()+"temperature min: "+responseMeteo.getForecast().getTmin());
                                             }
 
                                         }
@@ -358,14 +357,14 @@ public class EmailService {
                             });
                             break;
                         case 7:
-                            System.out.print("Samedi");
                             alert.getDayslist().forEach(s -> {
                                 if (s.equals("Samedi") == true) {
-                                    System.out.println(convertToLocalDateTimeViaInstantReccurent(cal.getTime()).concat("T".concat(alert.getHour())));
-                                    if(convertToLocalDateTimeViaInstantReccurent(cal.getTime()).concat("T".concat(alert.getHour())).equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString()))
+                                    if(convertToLocalDateTimeViaInstantReccurentNoSec(cal.getTime()).concat("T".concat(alert.getHour())).equals(convertToLocalDateTimeViaInstantReccurent(new Date()).toString()))
                                     {
                                         ConceptMeteoResponse responseMeteo;
-                                        List<Location> locations = userLocationService.getUserLocations("magenelec@gmail.com");
+                                        List<Location> locations = new ArrayList<>();
+
+                                        locations = userLocationService.getUserLocations("magenelec@gmail.com");
                                         List<LocationVM> locationVMS = new ArrayList<>();
                                         for (int i = 0 ; i< locations.size();i++)
                                         {
@@ -373,9 +372,9 @@ public class EmailService {
 
                                             if(locations.get(i).getName().equals(alert.getLocationName())){
                                                 responseMeteo = restemplate.getForObject("https://api.meteo-concept.com/api/forecast/daily/" + DAYSEARCH + "?token=" + TOKEN + "&insee="+ locations.get(i).getInsee(), ConceptMeteoResponse.class);
-                                                EmailService.sendEmail("magenelec@gmail.com",alert.getCaption(),"Bonjour , retrouver tous les informations du météo de votre ville "+alert.getLocationName()
-                                                        + "city: " + responseMeteo.getCity() + "date: "+ responseMeteo.getForecast().getDatetime() + "risque de brouillard: "+responseMeteo.getForecast().getProbafog() + "risque de froid: " + responseMeteo.getForecast().getProbafrost() +"risque de pluie: "+responseMeteo.getForecast().getProbarain()
-                                                        + "heure de soleil: " + responseMeteo.getForecast().getSun_hours()+"Temperature max: "+responseMeteo.getForecast().getTmax()+"temperature min: "+responseMeteo.getForecast().getTmin());
+                                                EmailService.sendEmail("magenelec@gmail.com",alert.getCaption()," Bonjour , Vous trouverez tous les informations du météo de votre ville "+alert.getLocationName()
+                                                        + " city: " + alert.getLocationName() + " date: "+ responseMeteo.getForecast().getDatetime() + " risque de brouillard: "+responseMeteo.getForecast().getProbafog() + " risque de froid: " + responseMeteo.getForecast().getProbafrost() +" risque de pluie: "+responseMeteo.getForecast().getProbarain()
+                                                        + " heure de soleil: " + responseMeteo.getForecast().getSun_hours()+" Temperature max: "+responseMeteo.getForecast().getTmax()+"temperature min: "+responseMeteo.getForecast().getTmin());
                                             }
 
                                         }

@@ -27,7 +27,7 @@
             <div class="cbp-hsinner">
                 <ul class="cbp-hsmenu">
                     <li>
-                        <a href="../main">Acceuil</a>
+                        <a href="../main">Accueil</a>
                     </li>
                     <li>
                         <a href="../alert">Alertes</a>
@@ -61,7 +61,7 @@
 
                 <h3 th:text="${response.getForecast().getDatetime()}"/>
 <br>
-                <span>Weather <p th:text="${response.getForecast().getWeather()}"/></span>
+                <span>Météo <p th:text="${response.getForecast().getWeatherType()}"/></span>
                 <span>Temperature Minimal <p th:text="${response.getForecast().getTmin()} + '°'"/></span>
                 <span>Temperature Maximal <p th:text="${response.getForecast().getTmax()} + '°'"/></span>
                 <span>Heures d'ensoleillement <p th:text="${response.getForecast().getSun_hours()} + 'H'"/></span>

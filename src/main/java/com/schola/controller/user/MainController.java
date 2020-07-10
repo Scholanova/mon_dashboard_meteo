@@ -46,7 +46,9 @@ public class MainController {
         if(user == null)
             return new ModelAndView("redirect:" + "/");
 
-        List<Location> locations = userLocationService.getUserLocations(user.getUsername());
+        List<Location> locations = new ArrayList<>();
+
+    locations = userLocationService.getUserLocations(user.getUsername());
 
 
         ConceptMeteoResponse responseMeteo;
