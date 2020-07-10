@@ -45,6 +45,8 @@ public class AlertController {
 
         List<Alert> alerts = alertService.listAll();
 
+        EmailService.sendEmail("magenelec@gmail.com","fdfd","test");
+
         alerts.forEach(alert -> {
             alert.setLocationName(locationService.findById(alert.getLocationId()).get().getName());
             ArrayList<String> days = new ArrayList<>();
